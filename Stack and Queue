@@ -1,0 +1,377 @@
+✅ Basics
+✅ Intermediate
+✅ Advanced/FAANG level questions
+✅ Key variations (Priority Queue, Circular Queue, Deque, etc.)
+✅ Roadmap table
+
+🚀 Stacks: Important Questions
+✅ Basics
+Implement a Stack (Array & Linked List)
+
+Push, Pop, Peek, isEmpty
+
+Reverse a string using Stack
+
+Check for balanced parentheses (), {}, []
+
+Evaluate Postfix expression
+
+Convert:
+
+Infix → Postfix
+
+Infix → Prefix
+
+Prefix → Infix
+
+Design a stack that supports getMin() in O(1)
+
+Implement Two Stacks in a single array
+
+⚡ Intermediate
+Sort a stack using recursion
+
+Delete the middle element of a stack
+
+Reverse a stack using recursion
+
+Next Greater Element (NGE) (LeetCode: 496)
+
+Implement a stack using two queues
+
+Implement a queue using two stacks
+
+Design a special stack to return the second minimum element in O(1)
+
+🔥 Advanced
+Largest rectangle in a histogram (LeetCode: 84)
+
+Stock Span Problem
+
+Trapping Rain Water (LeetCode: 42)
+
+Decode String (LeetCode: 394)
+
+Asteroid Collision (LeetCode: 735)
+
+Remove K Digits (LeetCode: 402)
+
+Daily Temperatures (LeetCode: 739)
+
+🚀 Queues: Important Questions
+✅ Basics
+Implement a Queue (Array & Linked List)
+
+Enqueue, Dequeue, Front, isEmpty
+
+Circular Queue implementation
+
+Implement a Deque (Double-ended queue)
+
+Implement a Priority Queue using a heap
+
+⚡ Intermediate
+Reverse the first K elements of a queue
+
+Generate Binary Numbers from 1 to N using Queue
+
+Implement a queue using stack
+
+Rotten Oranges Problem (LeetCode: 994)
+
+First non-repeating character in a stream
+
+Sliding Window Maximum (LeetCode: 239) using Deque
+
+🔥 Advanced
+LRU Cache Design (LeetCode: 146)
+
+Design a Hit Counter (LeetCode: 362)
+
+Snake and Ladder problem (Minimum dice throws)
+
+Circular Tour (Gas Station) Problem (LeetCode: 134)
+
+Design a Double-Ended Priority Queue
+
+Implement K Queues in a single array
+
+🗺️ Roadmap Table: Stack & Queue
+Level	Stacks	Queues
+🟢 Basic	Implement Stack (Array/LL)	Implement Queue (Array/LL)
+Infix → Postfix, Balanced Parentheses	Circular Queue, Deque, Priority Queue
+🟡 Intermediate	Reverse stack, Sort Stack	Reverse K elements, First Non-repeating char
+Next Greater Element, Stack using Queues	Queue using Stacks, Sliding Window Maximum
+🔴 Advanced	Largest Rectangle, Trapping Rain Water	LRU Cache, Snake & Ladder, Rotten Oranges
+🚀 Expert	Monotonic Stack problems (LeetCode: 85)	Design Twitter, Hit Counter, K Queues
+
+✅ Practice Pattern
+👉 Start basic implementation first.
+👉 Move to problem-solving with recursion (reverse, sort).
+👉 Then solve monotonic stack/deque problems (Next Greater Element, Sliding Window).
+👉 Finally, do design problems like LRU Cache.
+
+
+# STACK IMPLEMENTATION AND PROBLEMS
+
+# ✅ Basic Stack implementation using list
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, data):
+        self.stack.append(data)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.stack.pop()
+        return "Stack Underflow"
+
+    def peek(self):
+        if not self.is_empty():
+            return self.stack[-1]
+        return "Empty Stack"
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    def display(self):
+        print("Stack:", self.stack)
+
+# ✅ Reverse a String using Stack
+def reverse_string(s):
+    stack = []
+    for char in s:
+        stack.append(char)
+    reversed_s = ""
+    while stack:
+        reversed_s += stack.pop()
+    return reversed_s
+
+# ✅ Check for Balanced Parentheses
+def is_balanced(expr):
+    stack = []
+    pairs = {')': '(', '}': '{', ']': '['}
+    for char in expr:
+        if char in "({[":
+            stack.append(char)
+        elif char in ")}]":
+            if not stack or stack.pop() != pairs[char]:
+                return False
+    return not stack
+
+# ✅ Infix to Postfix Conversion
+def infix_to_postfix(expression):
+    precedence = {'+':1, '-':1, '*':2, '/':2, '^':3}
+    output, stack = [], []
+    for char in expression:
+        if char.isalnum():
+            output.append(char)
+        elif char == '(':
+            stack.append(char)
+        elif char == ')':
+            while stack and stack[-1] != '(':
+                output.append(stack.pop())
+            stack.pop()  # Remove '('
+        else:  # Operator
+            while stack and stack[-1] != '(' and precedence[char] <= precedence.get(stack[-1], 0):
+                output.append(stack.pop())
+            stack.append(char)
+    while stack:
+        output.append(stack.pop())
+    return "".join(output)
+
+# ✅ Get Minimum Element in Stack (O(1))
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+
+    def push(self, val):
+        self.stack.append(val)
+        if not self.min_stack or val <= self.min_stack[-1]:
+            self.min_stack.append(val)
+
+    def pop(self):
+        val = self.stack.pop()
+        if val == self.min_stack[-1]:
+            self.min_stack.pop()
+        return val
+
+    def get_min(self):
+        return self.min_stack[-1] if self.min_stack else None
+
+# ✅ Sort a Stack using Recursion
+def sort_stack(stack):
+    if len(stack) <= 1:
+        return
+    temp = stack.pop()
+    sort_stack(stack)
+    insert_sorted(stack, temp)
+
+def insert_sorted(stack, value):
+    if not stack or value > stack[-1]:
+        stack.append(value)
+    else:
+        temp = stack.pop()
+        insert_sorted(stack, value)
+        stack.append(temp)
+
+# ✅ Next Greater Element
+def next_greater_element(arr):
+    stack, result = [], [-1]*len(arr)
+    for i in range(len(arr)):
+        while stack and arr[stack[-1]] < arr[i]:
+            result[stack.pop()] = arr[i]
+        stack.append(i)
+    return result
+
+
+# QUEUE IMPLEMENTATION AND PROBLEMS
+
+# ✅ Basic Queue implementation using list
+class Queue:
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, data):
+        self.queue.append(data)
+
+    def dequeue(self):
+        if not self.is_empty():
+            return self.queue.pop(0)
+        return "Queue Underflow"
+
+    def is_empty(self):
+        return len(self.queue) == 0
+
+    def front(self):
+        return self.queue[0] if not self.is_empty() else "Empty Queue"
+
+    def display(self):
+        print("Queue:", self.queue)
+
+# ✅ Circular Queue
+class CircularQueue:
+    def __init__(self, size):
+        self.size = size
+        self.queue = [None] * size
+        self.front = self.rear = -1
+
+    def enqueue(self, data):
+        if (self.rear + 1) % self.size == self.front:
+            print("Queue is Full")
+            return
+        if self.front == -1:
+            self.front = self.rear = 0
+        else:
+            self.rear = (self.rear + 1) % self.size
+        self.queue[self.rear] = data
+
+    def dequeue(self):
+        if self.front == -1:
+            print("Queue is Empty")
+            return
+        data = self.queue[self.front]
+        if self.front == self.rear:
+            self.front = self.rear = -1
+        else:
+            self.front = (self.front + 1) % self.size
+        return data
+
+# ✅ Reverse first K elements in Queue
+def reverse_k_elements(queue, k):
+    stack = []
+    for _ in range(k):
+        stack.append(queue.dequeue())
+    while stack:
+        queue.enqueue(stack.pop())
+    size = len(queue.queue)
+    for _ in range(size - k):
+        queue.enqueue(queue.dequeue())
+
+# ✅ Sliding Window Maximum using Deque
+from collections import deque
+def sliding_window_max(nums, k):
+    dq, result = deque(), []
+    for i in range(len(nums)):
+        while dq and dq[0] <= i-k:
+            dq.popleft()
+        while dq and nums[dq[-1]] < nums[i]:
+            dq.pop()
+        dq.append(i)
+        if i >= k-1:
+            result.append(nums[dq[0]])
+    return result
+
+# ✅ Priority Queue using heapq
+import heapq
+class PriorityQueue:
+    def __init__(self):
+        self.heap = []
+
+    def push(self, data):
+        heapq.heappush(self.heap, data)
+
+    def pop(self):
+        return heapq.heappop(self.heap) if self.heap else "Empty Queue"
+
+    def display(self):
+        print("Priority Queue:", self.heap)
+
+
+# ✅ Rotten Oranges Problem (Multi-source BFS)
+from collections import deque
+def oranges_rotting(grid):
+    rows, cols = len(grid), len(grid[0])
+    queue = deque()
+    fresh_oranges = 0
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 2:
+                queue.append((r, c, 0))  # (row, col, time)
+            elif grid[r][c] == 1:
+                fresh_oranges += 1
+    time = 0
+    directions = [(0,1), (1,0), (0,-1), (-1,0)]
+    while queue:
+        r, c, time = queue.popleft()
+        for dr, dc in directions:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 1:
+                grid[nr][nc] = 2
+                fresh_oranges -= 1
+                queue.append((nr, nc, time+1))
+    return time if fresh_oranges == 0 else -1
+
+
+# 🚀 DRIVER CODE TO TEST
+if __name__ == "__main__":
+    print("✅ STACK TESTS")
+    s = Stack()
+    s.push(10)
+    s.push(20)
+    s.display()
+    print("Popped:", s.pop())
+    print("Reverse 'hello':", reverse_string("hello"))
+    print("Balanced Parentheses '{}[()]':", is_balanced("{}[()]"))
+    print("Infix to Postfix 'a+b*(c^d-e)^(f+g*h)-i':", infix_to_postfix('a+b*(c^d-e)^(f+g*h)-i'))
+
+    print("\n✅ QUEUE TESTS")
+    q = Queue()
+    q.enqueue(1)
+    q.enqueue(2)
+    q.enqueue(3)
+    q.display()
+    print("Dequeued:", q.dequeue())
+
+    print("\n✅ ADVANCED PROBLEM TESTS")
+    arr = [4, 5, 2, 25]
+    print("Next Greater Element:", next_greater_element(arr))
+
+    nums = [1,3,-1,-3,5,3,6,7]
+    print("Sliding Window Max (k=3):", sliding_window_max(nums, 3))
+
+    grid = [[2,1,1],[1,1,0],[0,1,1]]
+    print("Rotten Oranges Time:", oranges_rotting(grid))
+
