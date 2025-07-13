@@ -1,4 +1,65 @@
+🏆 📚 String Master Roadmap (Basic → Advanced)
+📌 Topic	🏆 Level	⭐ Placement Importance
+✅ Traversal & Basic Operations	Beginner	⭐⭐
+✅ Reverse a String	Beginner	⭐⭐⭐
+✅ Check Palindrome	Beginner	⭐⭐⭐
+✅ Count Vowels, Consonants, Digits, Spaces	Beginner	⭐⭐⭐
+✅ Change Case (Upper/Lower Toggle)	Beginner	⭐⭐
+✅ String Comparison (Lexicographical Order)	Beginner	⭐⭐
+✅ Substring Extraction	Beginner	⭐⭐⭐
+✅ Find Length of a String	Beginner	⭐⭐
+✅ Concatenate Strings	Beginner	⭐⭐
+✅ Check if Two Strings are Anagrams	Intermediate	⭐⭐⭐⭐
+✅ Remove Duplicate Characters	Intermediate	⭐⭐⭐
+✅ Find Duplicate Characters with Count	Intermediate	⭐⭐⭐⭐
+✅ Count Words in a Sentence	Intermediate	⭐⭐⭐
+✅ Reverse Words in a String	Intermediate	⭐⭐⭐⭐
+✅ Longest Word in a Sentence	Intermediate	⭐⭐⭐
+✅ Print All Substrings	Intermediate	⭐⭐⭐⭐
+✅ Check if Two Strings are Rotations	Intermediate	⭐⭐⭐⭐
+✅ Longest Common Prefix	Intermediate	⭐⭐⭐⭐⭐
+✅ Longest Repeated Substring	Advanced	⭐⭐⭐⭐
+✅ Longest Palindromic Substring	Advanced	⭐⭐⭐⭐⭐
+✅ Count Occurrences of a Substring	Advanced	⭐⭐⭐⭐
+✅ Pattern Matching - Naive Algorithm	Advanced	⭐⭐⭐⭐⭐
+✅ Pattern Matching - KMP Algorithm	Advanced	⭐⭐⭐⭐⭐
+✅ Pattern Matching - Rabin-Karp Algorithm	Advanced	⭐⭐⭐⭐
+✅ Pattern Matching - Z Algorithm	Advanced	⭐⭐⭐⭐
+✅ Minimum Insertions to Make a String Palindrome	Advanced	⭐⭐⭐⭐
+✅ Minimum Deletions to Make a String Palindrome	Advanced	⭐⭐⭐⭐
+✅ Edit Distance (Levenshtein Distance)	Expert	⭐⭐⭐⭐⭐
+✅ Manacher’s Algorithm (Longest Palindrome)	Expert	⭐⭐⭐⭐⭐
+
+🚀 🎯 Key String Algorithms
+✅ 1. KMP Algorithm → Substring search in O(N+M) time
+✅ 2. Rabin-Karp Algorithm → Substring search using hashing
+✅ 3. Z-Algorithm → Pattern search + preprocessing
+✅ 4. Manacher’s Algorithm → Longest palindromic substring in O(N)
+✅ 5. Sliding Window Technique → Fixed & variable window problems
+✅ 6. Trie Data Structure → Fast prefix searches
+✅ 7. Dynamic Programming (DP) → Longest Common Subsequence, Edit Distance
+✅ 8. Rolling Hash → For faster substring search
+
+🏆 💼 Top 15 Most Asked String Interview Questions
+🔥 Question	⭐ Asked In
+✅ Reverse a string	TCS, Wipro, Infosys
+✅ Check if a string is a palindrome	TCS, Accenture, Capgemini
+✅ Check if two strings are anagrams	Infosys, FAANG
+✅ Find duplicate characters in a string	Wipro, Amazon
+✅ Find first non-repeating character	FAANG, Product Based Companies
+✅ Longest palindromic substring	Amazon, Google
+✅ Longest Common Prefix	Accenture, Oracle
+✅ Check if one string is rotation of another	TCS, Cognizant
+✅ Substring search (KMP/Rabin-Karp)	Microsoft, Amazon
+✅ Count occurrences of a substring in a string	TCS, Infosys
+✅ Minimum insertions to make string palindrome	Amazon, Google
+✅ Longest Repeated Substring	Google, Meta
+✅ Print all permutations of a string	Infosys, Wipro
+✅ Edit Distance (Levenshtein Distance)	Amazon, Google
+✅ Z-Algorithm for pattern searching	FAANG, Competitive Coding
 # 🚀 ULTIMATE STRING TITAN CODE (Roadmap + Algorithms + IV Ques)
+
+
 
 # ✅ 1. Traversal & Basic Operations
 def traverse_string(s):
