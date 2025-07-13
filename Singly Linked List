@@ -1,0 +1,268 @@
+# Node class
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+# Linked List class
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    # ✅ Traverse the linked list
+    def traverse(self):
+        temp = self.head
+        while temp:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+        print("None")
+
+    # ✅ Insert at beginning
+    def insert_at_beginning(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    # ✅ Insert at end
+    def insert_at_end(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+        temp.next = new_node
+
+    # ✅ Insert at a specific position
+    def insert_at_position(self, data, position):
+        new_node = Node(data)
+        if position == 0:
+            self.insert_at_beginning(data)
+            return
+        temp = self.head
+        for _ in range(position - 1):
+            if temp is None:
+                print("Position out of bounds")
+                return
+            temp = temp.next
+        new_node.next = temp.next
+        temp.next = new_node
+
+    # ✅ Delete at beginning
+    def delete_at_beginning(self):
+        if self.head:
+            self.head = self.head.next
+
+    # ✅ Delete at end
+    def delete_at_end(self):
+        if not self.head:
+            return
+        if not self.head.next:
+            self.head = None
+            return
+        temp = self.head
+        while temp.next.next:
+            temp = temp.next
+        temp.next = None
+
+    # ✅ Delete at a specific position
+    def delete_at_position(self, position):
+        if position == 0:
+            self.delete_at_beginning()
+            return
+        temp = self.head
+        for _ in range(position - 1):
+            if temp is None:
+                print("Position out of bounds")
+                return
+            temp = temp.next
+        if temp.next:
+            temp.next = temp.next.next
+
+    # ✅ Search for a value
+    def search(self, key):
+        temp = self.head
+        position = 0
+        while temp:
+            if temp.data == key:
+                print(f"Value {key} found at position {position}")
+                return True
+            temp = temp.next
+            position += 1
+        print(f"Value {key} not found")
+        return False
+
+    # ✅ Reverse the linked list
+    def reverse(self):
+        prev = None
+        current = self.head
+        while current:
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+        self.head = prev
+        print("Linked List Reversed")
+
+    # ✅ Find length of linked list
+    def find_length(self):
+        count = 0
+        temp = self.head
+        while temp:
+            count += 1
+            temp = temp.next
+        print("Length of Linked List:", count)
+
+    # ✅ Find middle node
+    def find_middle(self):
+        slow = self.head
+        fast = self.head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        if slow:
+            print("Middle Node:", slow.data)
+
+    # ✅ Detect loop in linked list
+    def detect_loop(self):
+        slow = self.head
+        fast = self.head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                print("Loop Detected")
+                return True
+        print("No Loop Detected")
+        return False
+
+    # ✅ Remove duplicates (unsorted list)
+    def remove_duplicates(self):
+        seen = set()
+        current = self.head
+        prev = None
+        while current:
+            if current.data in seen:
+                prev.next = current.next
+            else:
+                seen.add(current.data)
+                prev = current
+            current = current.next
+        print("Duplicates Removed")
+
+    # ✅ Swap two nodes (by value)
+    def swap_nodes(self, val1, val2):
+        if val1 == val2:
+            return
+        prev1 = prev2 = None
+        curr1 = curr2 = self.head
+
+        # Find node1
+        while curr1 and curr1.data != val1:
+            prev1 = curr1
+            curr1 = curr1.next
+
+        # Find node2
+        while curr2 and curr2.data != val2:
+            prev2 = curr2
+            curr2 = curr2.next
+
+        if not curr1 or not curr2:
+            print("Swap not possible: one or both values not found")
+            return
+
+        if prev1:
+            prev1.next = curr2
+        else:
+            self.head = curr2
+
+        if prev2:
+            prev2.next = curr1
+        else:
+            self.head = curr1
+
+        curr1.next, curr2.next = curr2.next, curr1.next
+        print(f"Nodes {val1} and {val2} swapped")
+
+    # ✅ Sort linked list (Bubble Sort)
+    def sort(self):
+        if self.head is None:
+            return
+        end = None
+        while end != self.head:
+            current = self.head
+            while current.next != end:
+                next_node = current.next
+                if current.data > next_node.data:
+                    current.data, next_node.data = next_node.data, current.data
+                current = current.next
+            end = current
+        print("Linked List Sorted")
+
+    # ✅ Merge two linked lists
+    def merge(self, other_list):
+        dummy = Node(0)
+        tail = dummy
+        a = self.head
+        b = other_list.head
+        while a and b:
+            if a.data <= b.data:
+                tail.next = a
+                a = a.next
+            else:
+                tail.next = b
+                b = b.next
+            tail = tail.next
+        tail.next = a or b
+        self.head = dummy.next
+        print("Linked Lists Merged")
+
+    # ✅ Nth node from end
+    def nth_from_end(self, n):
+        first = self.head
+        second = self.head
+        for _ in range(n):
+            if not first:
+                print("N is larger than the length of the list")
+                return
+            first = first.next
+        while first:
+            first = first.next
+            second = second.next
+        print(f"{n}th Node from End is: {second.data}")
+
+    # ✅ Check if linked list is palindrome
+    def is_palindrome(self):
+        values = []
+        temp = self.head
+        while temp:
+            values.append(temp.data)
+            temp = temp.next
+        if values == values[::-1]:
+            print("Linked List is a Palindrome")
+        else:
+            print("Linked List is NOT a Palindrome")
+
+
+# 🔥 Example usage:
+ll = LinkedList()
+ll.insert_at_end(3)
+ll.insert_at_end(1)
+ll.insert_at_end(4)
+ll.insert_at_end(1)
+ll.insert_at_end(5)
+
+print("Original List:")
+ll.traverse()
+
+ll.reverse()
+ll.traverse()
+
+ll.find_length()
+ll.find_middle()
+ll.detect_loop()
+ll.remove_duplicates()
+ll.sort()
+ll.traverse()
+ll.is_palindrome()
