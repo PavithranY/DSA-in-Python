@@ -1,0 +1,145 @@
+✅ Prefix Sum Roadmap & Important Problems
+Level	Problems
+🟢 Basic	1. Prefix Sum Array
+2. Range Sum Query (static array)
+3. Even/Odd Count Prefix Sum
+🟡 Intermediate	4. Range Sum Query (mutable array)
+5. Subarray Sum Equals K
+6. Equilibrium Index
+🔴 Advanced	7. 2D Prefix Sum (Matrix Sum Query)
+8. Binary Subarrays with Sum K
+9. Max Subarray Sum
+
+# ========================
+# 🟢 BASIC PREFIX SUM
+# ========================
+
+# 1️⃣ Prefix Sum Array
+def prefix_sum_array(nums):
+    prefix = [0] * len(nums)
+    prefix[0] = nums[0]
+    for i in range(1, len(nums)):
+        prefix[i] = prefix[i-1] + nums[i]
+    return prefix
+
+# 2️⃣ Range Sum Query (static array)
+def range_sum_query(prefix, l, r):
+    if l == 0:
+        return prefix[r]
+    return prefix[r] - prefix[l-1]
+
+# 3️⃣ Even/Odd Count Prefix Sum
+def even_odd_prefix_sum(nums):
+    even_prefix, odd_prefix = [0] * len(nums), [0] * len(nums)
+    even_prefix[0] = 1 if nums[0] % 2 == 0 else 0
+    odd_prefix[0] = 1 if nums[0] % 2 == 1 else 0
+    for i in range(1, len(nums)):
+        even_prefix[i] = even_prefix[i-1] + (1 if nums[i] % 2 == 0 else 0)
+        odd_prefix[i] = odd_prefix[i-1] + (1 if nums[i] % 2 == 1 else 0)
+    return even_prefix, odd_prefix
+
+
+# ========================
+# ⚡ INTERMEDIATE PREFIX SUM
+# ========================
+
+# 4️⃣ Range Sum Query (Mutable Array) using Prefix Sum
+class NumArray:
+    def __init__(self, nums):
+        self.prefix = prefix_sum_array(nums)
+
+    def sum_range(self, left, right):
+        return range_sum_query(self.prefix, left, right)
+
+# 5️⃣ Subarray Sum Equals K
+def subarray_sum_equals_k(nums, k):
+    count, curr_sum = 0, 0
+    prefix_map = {0: 1}
+    for num in nums:
+        curr_sum += num
+        count += prefix_map.get(curr_sum - k, 0)
+        prefix_map[curr_sum] = prefix_map.get(curr_sum, 0) + 1
+    return count
+
+# 6️⃣ Equilibrium Index (left sum == right sum)
+def equilibrium_index(nums):
+    total_sum = sum(nums)
+    left_sum = 0
+    for i, num in enumerate(nums):
+        total_sum -= num
+        if left_sum == total_sum:
+            return i
+        left_sum += num
+    return -1
+
+
+# ========================
+# 🔥 ADVANCED PREFIX SUM
+# ========================
+
+# 7️⃣ 2D Prefix Sum (Matrix Sum Query)
+def compute_2d_prefix_sum(matrix):
+    rows, cols = len(matrix), len(matrix[0])
+    prefix = [[0] * (cols + 1) for _ in range(rows + 1)]
+    for i in range(1, rows + 1):
+        for j in range(1, cols + 1):
+            prefix[i][j] = (matrix[i-1][j-1] +
+                            prefix[i-1][j] +
+                            prefix[i][j-1] -
+                            prefix[i-1][j-1])
+    return prefix
+
+def query_2d_prefix_sum(prefix, x1, y1, x2, y2):
+    return (prefix[x2+1][y2+1] - prefix[x1][y2+1] - 
+            prefix[x2+1][y1] + prefix[x1][y1])
+
+# 8️⃣ Binary Subarrays with Sum K
+def num_subarrays_with_sum(nums, goal):
+    count = {0: 1}
+    res = curr_sum = 0
+    for num in nums:
+        curr_sum += num
+        res += count.get(curr_sum - goal, 0)
+        count[curr_sum] = count.get(curr_sum, 0) + 1
+    return res
+
+# 9️⃣ Maximum Subarray Sum (Kadane’s Algorithm + Prefix Sum version)
+def max_subarray_sum(nums):
+    curr_sum = max_sum = nums[0]
+    for i in range(1, len(nums)):
+        curr_sum = max(nums[i], curr_sum + nums[i])
+        max_sum = max(max_sum, curr_sum)
+    return max_sum
+
+
+# ========================
+# 🚀 TEST CASES
+# ========================
+if __name__ == "__main__":
+    nums = [1, 2, 3, 4, 5]
+    print("1️⃣ Prefix Sum Array:", prefix_sum_array(nums))
+    prefix = prefix_sum_array(nums)
+    print("2️⃣ Range Sum Query (1,3):", range_sum_query(prefix, 1, 3))
+    even_prefix, odd_prefix = even_odd_prefix_sum(nums)
+    print("3️⃣ Even Count Prefix:", even_prefix, "\nOdd Count Prefix:", odd_prefix)
+
+    num_array = NumArray(nums)
+    print("4️⃣ Mutable Range Sum Query (0,2):", num_array.sum_range(0, 2))
+
+    nums2 = [1, 1, 1]
+    print("5️⃣ Subarray Sum Equals 2:", subarray_sum_equals_k(nums2, 2))
+
+    nums3 = [-7, 1, 5, 2, -4, 3, 0]
+    print("6️⃣ Equilibrium Index:", equilibrium_index(nums3))
+
+    matrix = [
+        [3, 0, 1, 4],
+        [5, 6, 3, 2],
+        [1, 2, 0, 1],
+    ]
+    prefix_2d = compute_2d_prefix_sum(matrix)
+    print("7️⃣ 2D Matrix Sum Query ((1,1),(2,2)):", query_2d_prefix_sum(prefix_2d, 1, 1, 2, 2))
+
+    print("8️⃣ Binary Subarrays with Sum 2:", num_subarrays_with_sum([1,0,1,0,1], 2))
+
+    print("9️⃣ Max Subarray Sum:", max_subarray_sum([-2,1,-3,4,-1,2,1,-5,4]))
