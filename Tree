@@ -1,0 +1,280 @@
+🏆 🌳 Tree Mastery Roadmap (Python)
+📌 Topic	🏆 Level	⭐ Placement Importance
+✅ Basics of Binary Tree (Creation & Traversal)	Beginner	⭐⭐⭐
+✅ Preorder, Inorder, Postorder Traversals	Beginner	⭐⭐⭐⭐
+✅ Level Order Traversal (BFS)	Beginner	⭐⭐⭐⭐
+✅ Height / Depth of a Binary Tree	Beginner	⭐⭐⭐⭐
+✅ Count Nodes, Leaves, and Non-Leaves	Beginner	⭐⭐⭐
+✅ Check if Two Trees are Identical	Beginner	⭐⭐⭐
+✅ Diameter of a Binary Tree	Intermediate	⭐⭐⭐⭐
+✅ Left/Right View of Binary Tree	Intermediate	⭐⭐⭐⭐
+✅ Top View & Bottom View of Binary Tree	Intermediate	⭐⭐⭐⭐
+✅ Boundary Traversal	Intermediate	⭐⭐⭐⭐
+✅ Mirror of a Binary Tree	Intermediate	⭐⭐⭐
+✅ Check if Binary Tree is Balanced	Intermediate	⭐⭐⭐⭐
+✅ Lowest Common Ancestor (LCA)	Intermediate	⭐⭐⭐⭐⭐
+✅ Serialize and Deserialize Binary Tree	Advanced	⭐⭐⭐⭐⭐
+✅ Maximum Path Sum in Binary Tree	Advanced	⭐⭐⭐⭐⭐
+✅ Construct Tree from Preorder & Inorder	Advanced	⭐⭐⭐⭐⭐
+✅ Vertical Order Traversal	Advanced	⭐⭐⭐⭐
+✅ Binary Search Tree (BST) Operations (Insert, Search, Delete)	Advanced	⭐⭐⭐⭐
+✅ Validate BST	Advanced	⭐⭐⭐⭐
+✅ Kth Smallest & Kth Largest in BST	Advanced	⭐⭐⭐⭐⭐
+✅ Convert Sorted Array to BST	Advanced	⭐⭐⭐⭐
+✅ Lowest Common Ancestor in BST	Advanced	⭐⭐⭐⭐⭐
+
+🚀 🎯 Key Tree Algorithms
+✅ Depth First Search (DFS)
+✅ Breadth First Search (BFS)
+✅ Morris Traversal (Inorder without recursion/stack)
+✅ Diameter of Tree (optimized O(N))
+✅ Serialize/Deserialize Binary Tree
+✅ Tree to DLL (flatten binary tree)
+✅ Segment Trees and Fenwick Trees (for range queries – FAANG)
+✅ Trie Data Structure (Prefix Tree)
+
+🎯 💼 Top 15 Tree Interview Questions
+🔥 Question	⭐ Asked In
+✅ Preorder, Inorder, Postorder Traversals	TCS, Wipro, Infosys
+✅ Level Order Traversal	Amazon, Microsoft
+✅ Diameter of a Binary Tree	Google, Meta
+✅ Left/Right View of Binary Tree	Amazon, Cognizant
+✅ Lowest Common Ancestor (LCA)	FAANG, Product Companies
+✅ Serialize and Deserialize Binary Tree	FAANG
+✅ Check if Binary Tree is Balanced	Microsoft, Oracle
+✅ Vertical Order Traversal	Amazon, Google
+✅ Construct Tree from Preorder & Inorder	Meta, Microsoft
+✅ Maximum Path Sum in Binary Tree	Amazon, FAANG
+✅ Validate Binary Search Tree	TCS, Wipro, FAANG
+✅ Kth Smallest Element in BST	Google, Infosys
+✅ Convert Sorted Array to BST	Cognizant, Wipro
+✅ Mirror a Binary Tree	TCS, Capgemini
+✅ Boundary Traversal	Infosys, Wipro
+
+
+# ==============================
+# 🌳 TREE MASTER FILE (PYTHON)
+# ✅ Beginner → Advanced → FAANG
+# ✅ All Tree Algorithms & Interview Questions
+# ✅ BFS, DFS, and More (with PRINTS)
+# ==============================
+
+# ✅ 1. Binary Tree Node
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+
+# ✅ 2. Preorder Traversal (DFS Recursive)
+def preorder(root):
+    if root:
+        print(root.val, end=" ")  # Root
+        preorder(root.left)       # Left
+        preorder(root.right)      # Right
+
+
+# ✅ 3. Inorder Traversal (DFS Recursive)
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.val, end=" ")
+        inorder(root.right)
+
+
+# ✅ 4. Postorder Traversal (DFS Recursive)
+def postorder(root):
+    if root:
+        postorder(root.left)
+        postorder(root.right)
+        print(root.val, end=" ")
+
+
+# ✅ 5. Level Order Traversal (BFS)
+from collections import deque
+def level_order(root):
+    if not root:
+        return
+    print("Level Order BFS: ", end="")
+    q = deque([root])
+    while q:
+        node = q.popleft()
+        print(node.val, end=" ")
+        if node.left:
+            q.append(node.left)
+        if node.right:
+            q.append(node.right)
+    print()
+
+
+# ✅ 6. DFS Traversal (Iterative Preorder)
+def dfs_iterative(root):
+    if not root:
+        return
+    print("DFS Preorder Iterative: ", end="")
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        print(node.val, end=" ")
+        if node.right:
+            stack.append(node.right)  # Right child pushed first
+        if node.left:
+            stack.append(node.left)   # Left child pushed last
+    print()
+
+
+# ✅ 7. DFS Traversal (Recursive)
+def dfs_recursive(root):
+    if root:
+        print(root.val, end=" ")  # Preorder by default
+        dfs_recursive(root.left)
+        dfs_recursive(root.right)
+
+
+# ✅ 8. Height of Binary Tree
+def height(root):
+    if not root:
+        return 0
+    lh = height(root.left)
+    rh = height(root.right)
+    return 1 + max(lh, rh)
+
+
+# ✅ 9. Count Total Nodes
+def count_nodes(root):
+    if not root:
+        return 0
+    return 1 + count_nodes(root.left) + count_nodes(root.right)
+
+
+# ✅ 10. Diameter of Binary Tree (O(N))
+def diameter(root):
+    res = [0]
+    def dfs(node):
+        if not node:
+            return 0
+        lh = dfs(node.left)
+        rh = dfs(node.right)
+        res[0] = max(res[0], lh + rh)
+        return 1 + max(lh, rh)
+    dfs(root)
+    print(f"Tree Diameter: {res[0]}")
+    return res[0]
+
+
+# ✅ 11. Left View of Binary Tree
+def left_view(root):
+    if not root:
+        return
+    q, res = deque([(root, 0)]), []
+    while q:
+        node, level = q.popleft()
+        if level == len(res):
+            res.append(node.val)
+        if node.left:
+            q.append((node.left, level + 1))
+        if node.right:
+            q.append((node.right, level + 1))
+    print(f"Left View: {res}")
+
+
+# ✅ 12. Right View of Binary Tree
+def right_view(root):
+    if not root:
+        return
+    q, res = deque([(root, 0)]), []
+    while q:
+        node, level = q.popleft()
+        if level == len(res):
+            res.append(node.val)
+        if node.right:
+            q.append((node.right, level + 1))
+        if node.left:
+            q.append((node.left, level + 1))
+    print(f"Right View: {res}")
+
+
+# ✅ 13. Lowest Common Ancestor (LCA)
+def lca(root, p, q):
+    if not root or root.val == p or root.val == q:
+        return root
+    left = lca(root.left, p, q)
+    right = lca(root.right, p, q)
+    if left and right:
+        return root
+    return left or right
+
+
+# ✅ 14. Invert Binary Tree
+def invert_tree(root):
+    if root:
+        root.left, root.right = root.right, root.left
+        invert_tree(root.left)
+        invert_tree(root.right)
+    return root
+
+
+# ✅ 15. Serialize and Deserialize Binary Tree
+def serialize(root):
+    res = []
+    def dfs(node):
+        if not node:
+            res.append('#')
+            return
+        res.append(str(node.val))
+        dfs(node.left)
+        dfs(node.right)
+    dfs(root)
+    return ','.join(res)
+
+def deserialize(data):
+    vals = iter(data.split(','))
+    def dfs():
+        val = next(vals)
+        if val == '#':
+            return None
+        node = Node(int(val))
+        node.left = dfs()
+        node.right = dfs()
+        return node
+    return dfs()
+
+
+# ======================
+# 🌳 Test Tree
+#        1
+#      /   \
+#     2     3
+#    / \   / \
+#   4  5  6   7
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+root.right.left = Node(6)
+root.right.right = Node(7)
+
+# ======================
+# 🧪 OUTPUTS
+print("\n✅ Preorder (DFS): "); preorder(root)          # 1 2 4 5 3 6 7
+print("\n✅ Inorder: "); inorder(root)                  # 4 2 5 1 6 3 7
+print("\n✅ Postorder: "); postorder(root)              # 4 5 2 6 7 3 1
+level_order(root)                                       # Level Order: 1 2 3 4 5 6 7
+dfs_iterative(root)                                     # DFS Preorder Iterative: 1 2 4 5 3 6 7
+print("\n✅ Height: ", height(root))                    # 3
+print("✅ Total Nodes: ", count_nodes(root))            # 7
+left_view(root)                                         # [1, 2, 4]
+right_view(root)                                        # [1, 3, 7]
+diameter(root)                                          # Diameter: 4
+
+# ✅ Serialize/Deserialize
+ser = serialize(root)
+print("✅ Serialized Tree:", ser)
+deser_root = deserialize(ser)
+print("\n✅ Preorder of Deserialized Tree: "); preorder(deser_root)
+
+# ✅ LCA
+ancestor = lca(root, 4, 5)
+print(f"\n✅ LCA(4,5): {ancestor.val}")                 # 2
