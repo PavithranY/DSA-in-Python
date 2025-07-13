@@ -1,0 +1,228 @@
+🚀 Greedy Algorithm: Roadmap & Important Questions
+✅ Basics (Greedy Concept)
+Activity Selection Problem (GFG Classic)
+
+Fractional Knapsack Problem
+
+Minimum Number of Coins (Change-making problem)
+
+Job Sequencing Problem
+
+Huffman Encoding
+
+Egyptian Fraction Representation
+
+⚡ Intermediate Problems
+Minimum Spanning Tree (Prim’s & Kruskal’s Algorithm)
+
+Dijkstra’s Algorithm (Shortest Path)
+
+Gas Station (LeetCode: 134)
+
+Candy Distribution (LeetCode: 135)
+
+Jump Game (LeetCode: 55)
+
+Minimum Platforms (GFG Classic)
+
+🔥 Advanced/FAANG-Level Problems
+Buy and Sell Stocks (LeetCode: 122, 188)
+
+Minimum Cost to Connect Ropes (LeetCode: 1167)
+
+Meeting Rooms II (LeetCode: 253)
+
+Partition Labels (LeetCode: 763)
+
+Reorganize String (LeetCode: 767)
+
+Task Scheduler (LeetCode: 621)
+
+Non-overlapping Intervals (LeetCode: 435)
+
+📝 Step-by-Step Roadmap Table
+Level	Greedy Problems
+🟢 Basic	Activity Selection, Fractional Knapsack
+🟡 Intermediate	Minimum Coins, Job Sequencing, Jump Game
+🔴 Advanced	Candy Distribution, Partition Labels, Task Scheduler
+
+# ========================
+# 🟢 BASIC PROBLEMS
+# ========================
+
+# 1️⃣ Activity Selection Problem
+def activity_selection(activities):
+    activities.sort(key=lambda x: x[1])
+    n = len(activities)
+    selected = [activities[0]]
+    last_end = activities[0][1]
+    for i in range(1, n):
+        if activities[i][0] >= last_end:
+            selected.append(activities[i])
+            last_end = activities[i][1]
+    return selected
+
+
+# 2️⃣ Fractional Knapsack Problem
+def fractional_knapsack(capacity, weights, values):
+    ratio = [(v/w, w, v) for v, w in zip(values, weights)]
+    ratio.sort(reverse=True)
+    total_value = 0
+    for r, w, v in ratio:
+        if capacity >= w:
+            capacity -= w
+            total_value += v
+        else:
+            total_value += r * capacity
+            break
+    return total_value
+
+
+# 3️⃣ Minimum Number of Coins
+def min_coins(coins, amount):
+    coins.sort(reverse=True)
+    count = 0
+    for coin in coins:
+        if amount >= coin:
+            count += amount // coin
+            amount %= coin
+    return count if amount == 0 else -1
+
+
+# 4️⃣ Job Sequencing Problem
+def job_sequencing(jobs):
+    jobs.sort(key=lambda x: x[2], reverse=True)
+    n = max(job[1] for job in jobs)
+    slots = [-1] * n
+    total_profit = 0
+    for job in jobs:
+        for j in range(min(n, job[1]) - 1, -1, -1):
+            if slots[j] == -1:
+                slots[j] = job[0]
+                total_profit += job[2]
+                break
+    return slots, total_profit
+
+
+# ========================
+# ⚡ INTERMEDIATE PROBLEMS
+# ========================
+
+# 5️⃣ Minimum Spanning Tree (Kruskal’s Algorithm)
+class DisjointSet:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, u):
+        if u != self.parent[u]:
+            self.parent[u] = self.find(self.parent[u])
+        return self.parent[u]
+
+    def union(self, u, v):
+        u_root = self.find(u)
+        v_root = self.find(v)
+        if u_root != v_root:
+            self.parent[v_root] = u_root
+
+
+def kruskal(n, edges):
+    edges.sort(key=lambda x: x[2])
+    ds = DisjointSet(n)
+    mst = []
+    cost = 0
+    for u, v, weight in edges:
+        if ds.find(u) != ds.find(v):
+            ds.union(u, v)
+            mst.append((u, v, weight))
+            cost += weight
+    return mst, cost
+
+
+# 6️⃣ Dijkstra’s Algorithm
+import heapq
+
+def dijkstra(graph, start):
+    n = len(graph)
+    dist = [float('inf')] * n
+    dist[start] = 0
+    heap = [(0, start)]
+    while heap:
+        d, u = heapq.heappop(heap)
+        if d > dist[u]:
+            continue
+        for v, w in graph[u]:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                heapq.heappush(heap, (dist[v], v))
+    return dist
+
+
+# 7️⃣ Jump Game (Leetcode 55)
+def can_jump(nums):
+    max_reach = 0
+    for i, jump in enumerate(nums):
+        if i > max_reach:
+            return False
+        max_reach = max(max_reach, i + jump)
+    return True
+
+
+# ========================
+# 🔥 ADVANCED PROBLEMS
+# ========================
+
+# 8️⃣ Buy and Sell Stocks (Leetcode 122)
+def max_profit(prices):
+    profit = 0
+    for i in range(1, len(prices)):
+        if prices[i] > prices[i-1]:
+            profit += prices[i] - prices[i-1]
+    return profit
+
+
+# 9️⃣ Minimum Cost to Connect Ropes (Leetcode 1167)
+def min_cost_to_connect_ropes(ropes):
+    heapq.heapify(ropes)
+    cost = 0
+    while len(ropes) > 1:
+        first = heapq.heappop(ropes)
+        second = heapq.heappop(ropes)
+        total = first + second
+        cost += total
+        heapq.heappush(ropes, total)
+    return cost
+
+
+# 🔟 Partition Labels (Leetcode 763)
+def partition_labels(s):
+    last = {ch: i for i, ch in enumerate(s)}
+    result = []
+    size = end = 0
+    for i, ch in enumerate(s):
+        end = max(end, last[ch])
+        size += 1
+        if i == end:
+            result.append(size)
+            size = 0
+    return result
+
+
+# ========================
+# 🚀 TEST CASES
+# ========================
+if __name__ == "__main__":
+    print("1️⃣ Activity Selection:", activity_selection([(1, 3), (2, 5), (4, 6), (6, 7), (5, 8), (7, 9)]))
+    print("2️⃣ Fractional Knapsack:", fractional_knapsack(50, [10, 20, 30], [60, 100, 120]))
+    print("3️⃣ Minimum Coins:", min_coins([1, 2, 5, 10], 27))
+    print("4️⃣ Job Sequencing:", job_sequencing([('a', 2, 100), ('b', 1, 19), ('c', 2, 27), ('d', 1, 25), ('e', 3, 15)]))
+    
+    edges = [(0, 1, 10), (0, 2, 6), (0, 3, 5), (1, 3, 15), (2, 3, 4)]
+    print("5️⃣ Kruskal MST:", kruskal(4, edges))
+    
+    graph = {0: [(1, 4), (2, 1)], 1: [(3, 1)], 2: [(1, 2), (3, 5)], 3: []}
+    print("6️⃣ Dijkstra Distances:", dijkstra(graph, 0))
+    
+    print("7️⃣ Jump Game:", can_jump([2, 3, 1, 1, 4]))
+    print("8️⃣ Buy/Sell Stocks:", max_profit([7, 1, 5, 3, 6, 4]))
+    print("9️⃣ Min Cost Connect Ropes:", min_cost_to_connect_ropes([4, 3, 2, 6]))
+    print("🔟 Partition Labels:", partition_labels("ababcbacadefegdehijhklij"))
