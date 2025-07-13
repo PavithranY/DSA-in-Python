@@ -1,0 +1,250 @@
+
+🚀 Backtracking: Roadmap & Important Questions
+✅ Basics (Understand recursion first)
+Solve a Maze (Rat in a Maze problem)
+
+Generate all subsets of a set
+
+Generate all permutations of a string/array
+
+N-Queens Problem
+
+Sudoku Solver
+
+Word Search in a matrix (LeetCode: 79)
+
+⚡ Intermediate Backtracking Problems
+Palindrome Partitioning (LeetCode: 131)
+
+Combination Sum (LeetCode: 39, 40)
+
+Letter Combinations of a Phone Number (LeetCode: 17)
+
+Subset Sum Problem
+
+Knight’s Tour Problem
+
+Restore IP Addresses (LeetCode: 93)
+
+🔥 Advanced Backtracking Problems
+Solve Crossword Puzzle
+
+Count Unique Paths in a maze with obstacles
+
+Word Break II (LeetCode: 140)
+
+Expression Add Operators (LeetCode: 282)
+
+
+🚀 Dynamic Programming: Roadmap & Important Questions
+✅ Basics (1D DP)
+Fibonacci Number (Top-down and Bottom-up)
+
+Climbing Stairs (LeetCode: 70)
+
+Min Cost Climbing Stairs (LeetCode: 746)
+
+House Robber (LeetCode: 198)
+
+Maximum Subarray (Kadane’s Algorithm) (LeetCode: 53)
+
+⚡ Intermediate (2D DP)
+Longest Common Subsequence (LCS) (LeetCode: 1143)
+
+Longest Palindromic Substring (LeetCode: 5)
+
+Edit Distance (LeetCode: 72)
+
+Coin Change (LeetCode: 322)
+
+0/1 Knapsack Problem
+
+Unique Paths (LeetCode: 62)
+
+Minimum Path Sum (LeetCode: 64)
+
+🔥 Advanced DP Problems
+Partition Equal Subset Sum (LeetCode: 416)
+
+Wildcard Matching (LeetCode: 44)
+
+Burst Balloons (LeetCode: 312)
+
+Cherry Pickup (LeetCode: 741)
+
+Palindrome Partitioning II (LeetCode: 132)
+
+
+# ----------------------------------------
+# ✅ BACKTRACKING IMPLEMENTATION & PROBLEMS
+# ----------------------------------------
+
+# ✅ Rat in a Maze
+def solve_maze(maze):
+    N = len(maze)
+    path = [[0]*N for _ in range(N)]
+
+    def backtrack(x, y):
+        if x == N-1 and y == N-1:
+            path[x][y] = 1
+            return True
+        if 0 <= x < N and 0 <= y < N and maze[x][y] == 1:
+            path[x][y] = 1
+            if backtrack(x+1, y) or backtrack(x, y+1):
+                return True
+            path[x][y] = 0
+        return False
+
+    if backtrack(0, 0):
+        return path
+    else:
+        return "No path found"
+
+
+# ✅ Generate all subsets
+def subsets(nums):
+    result = []
+
+    def backtrack(start, path):
+        result.append(path[:])
+        for i in range(start, len(nums)):
+            path.append(nums[i])
+            backtrack(i+1, path)
+            path.pop()
+
+    backtrack(0, [])
+    return result
+
+
+# ✅ N-Queens Problem
+def solve_n_queens(n):
+    board = [["."]*n for _ in range(n)]
+    res = []
+
+    def is_safe(row, col):
+        for i in range(row):
+            if board[i][col] == "Q":
+                return False
+            if col-(row-i) >= 0 and board[i][col-(row-i)] == "Q":
+                return False
+            if col+(row-i) < n and board[i][col+(row-i)] == "Q":
+                return False
+        return True
+
+    def backtrack(row):
+        if row == n:
+            res.append(["".join(r) for r in board])
+            return
+        for col in range(n):
+            if is_safe(row, col):
+                board[row][col] = "Q"
+                backtrack(row+1)
+                board[row][col] = "."
+
+    backtrack(0)
+    return res
+
+
+# ✅ Sudoku Solver
+def solve_sudoku(board):
+    def is_valid(r, c, k):
+        for i in range(9):
+            if board[i][c] == k or board[r][i] == k or board[3*(r//3)+i//3][3*(c//3)+i%3] == k:
+                return False
+        return True
+
+    def backtrack():
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] == ".":
+                    for k in "123456789":
+                        if is_valid(r, c, k):
+                            board[r][c] = k
+                            if backtrack():
+                                return True
+                            board[r][c] = "."
+                    return False
+        return True
+
+    backtrack()
+    return board
+
+
+# ----------------------------------------
+# ✅ DYNAMIC PROGRAMMING IMPLEMENTATION & PROBLEMS
+# ----------------------------------------
+
+# ✅ Fibonacci (Top-down Memoization)
+def fibonacci(n, memo={}):
+    if n in memo: return memo[n]
+    if n <= 1: return n
+    memo[n] = fibonacci(n-1, memo) + fibonacci(n-2, memo)
+    return memo[n]
+
+
+# ✅ Climbing Stairs
+def climb_stairs(n):
+    dp = [0]*(n+1)
+    dp[0], dp[1] = 1, 1
+    for i in range(2, n+1):
+        dp[i] = dp[i-1] + dp[i-2]
+    return dp[n]
+
+
+# ✅ Longest Common Subsequence
+def lcs(text1, text2):
+    m, n = len(text1), len(text2)
+    dp = [[0]*(n+1) for _ in range(m+1)]
+    for i in range(m-1, -1, -1):
+        for j in range(n-1, -1, -1):
+            if text1[i] == text2[j]:
+                dp[i][j] = 1 + dp[i+1][j+1]
+            else:
+                dp[i][j] = max(dp[i+1][j], dp[i][j+1])
+    return dp[0][0]
+
+
+# ✅ Coin Change
+def coin_change(coins, amount):
+    dp = [float('inf')]*(amount+1)
+    dp[0] = 0
+    for coin in coins:
+        for i in range(coin, amount+1):
+            dp[i] = min(dp[i], dp[i-coin]+1)
+    return dp[amount] if dp[amount] != float('inf') else -1
+
+
+# ✅ 0/1 Knapsack Problem
+def knapsack(weights, values, capacity):
+    n = len(weights)
+    dp = [[0]*(capacity+1) for _ in range(n+1)]
+    for i in range(1, n+1):
+        for w in range(capacity+1):
+            if weights[i-1] <= w:
+                dp[i][w] = max(dp[i-1][w], dp[i-1][w-weights[i-1]] + values[i-1])
+            else:
+                dp[i][w] = dp[i-1][w]
+    return dp[n][capacity]
+
+
+# 🚀 DRIVER CODE
+if __name__ == "__main__":
+    print("✅ BACKTRACKING TESTS")
+    maze = [[1, 0, 0, 0],
+            [1, 1, 0, 1],
+            [0, 1, 0, 0],
+            [1, 1, 1, 1]]
+    print("Rat in a Maze Solution:")
+    for row in solve_maze(maze): print(row)
+
+    print("\nSubsets of [1,2,3]:", subsets([1,2,3]))
+
+    print("\nN-Queens Solution (n=4):")
+    for sol in solve_n_queens(4): print(sol)
+
+    print("\n✅ DP TESTS")
+    print("Fibonacci(10):", fibonacci(10))
+    print("Climb Stairs(5):", climb_stairs(5))
+    print("LCS of 'abcde' and 'ace':", lcs("abcde", "ace"))
+    print("Coin Change [1,2,5] for amount 11:", coin_change([1,2,5], 11))
+    print("0/1 Knapsack:", knapsack([2,3,4], [3,4,5], 5))
