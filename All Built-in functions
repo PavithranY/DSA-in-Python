@@ -1,0 +1,145 @@
+# 🚀 Python Built-in Functions Titan Code (Output in Comments)
+
+# ✅ abs()
+print(abs(-5))                     # ➡️ 5
+
+# ✅ all()
+print(all([True, True, False]))    # ➡️ False
+
+# ✅ any()
+print(any([False, False, True]))   # ➡️ True
+
+# ✅ ascii()
+print(ascii('Pavithran😊'))        # ➡️ 'Pavithran\\U0001f60a'
+
+# ✅ bin()
+print(bin(10))                     # ➡️ '0b1010'
+
+# ✅ bool()
+print(bool(0))                     # ➡️ False
+
+# ✅ bytearray()
+b = bytearray("Hello", "utf-8")
+b[0] = 74
+print(b)                           # ➡️ bytearray(b'Jello')
+
+# ✅ bytes()
+print(bytes("Python", "utf-8"))    # ➡️ b'Python'
+
+# ✅ callable()
+print(callable(len))               # ➡️ True
+
+# ✅ chr()
+print(chr(97))                     # ➡️ 'a'
+
+# ✅ complex()
+print(complex(2, 3))               # ➡️ (2+3j)
+
+# ✅ divmod()
+print(divmod(10, 3))               # ➡️ (3, 1)
+
+# ✅ enumerate()
+print(list(enumerate(['a', 'b']))) # ➡️ [(0, 'a'), (1, 'b')]
+
+# ✅ eval()
+print(eval('2 + 3 * 4'))           # ➡️ 14
+
+# ✅ filter()
+print(list(filter(lambda x: x%2==0, [1,2,3,4])))  # ➡️ [2, 4]
+
+# ✅ float()
+print(float('3.14'))               # ➡️ 3.14
+
+# ✅ format()
+print(format(1234, ','))           # ➡️ '1,234'
+
+# ✅ frozenset()
+print(frozenset([1,2,2,3]))        # ➡️ frozenset({1, 2, 3})
+
+# ✅ getattr()
+class A:
+    name = "Titan"
+print(getattr(A, 'name'))          # ➡️ 'Titan'
+
+# ✅ globals()
+print('globals keys:', list(globals().keys())[:5])  # ➡️ shows first few global keys
+
+# ✅ hasattr()
+print(hasattr(A, 'name'))          # ➡️ True
+
+# ✅ hash()
+print(hash('Python'))              # ➡️ (Some integer hash value)
+
+# ✅ hex()
+print(hex(255))                    # ➡️ '0xff'
+
+# ✅ id()
+x = 5
+print(id(x))                       # ➡️ (Memory address, e.g., 9789312)
+
+# ✅ int()
+print(int('10'))                   # ➡️ 10
+
+# ✅ isinstance()
+print(isinstance(5, int))          # ➡️ True
+
+# ✅ issubclass()
+class B(A): pass
+print(issubclass(B, A))            # ➡️ True
+
+# ✅ iter() & next()
+it = iter([1, 2, 3])
+print(next(it))                    # ➡️ 1
+print(next(it))                    # ➡️ 2
+
+# ✅ len()
+print(len("Python"))               # ➡️ 6
+
+# ✅ list()
+print(list('abc'))                 # ➡️ ['a', 'b', 'c']
+
+# ✅ map()
+print(list(map(lambda x: x*2, [1,2,3])))  # ➡️ [2, 4, 6]
+
+# ✅ max()
+print(max([1, 4, 2]))              # ➡️ 4
+
+# ✅ min()
+print(min([1, 4, 2]))              # ➡️ 1
+
+# ✅ ord()
+print(ord('A'))                    # ➡️ 65
+
+# ✅ pow()
+print(pow(2, 3))                   # ➡️ 8
+print(pow(2, 3, 5))                # ➡️ 3 (8 % 5)
+
+# ✅ print()
+print("Hello Titan!")              # ➡️ Hello Titan!
+
+# ✅ reversed()
+print(list(reversed([1, 2, 3])))   # ➡️ [3, 2, 1]
+
+# ✅ round()
+print(round(3.567, 2))             # ➡️ 3.57
+
+# ✅ set()
+print(set([1,2,2,3]))              # ➡️ {1, 2, 3}
+
+# ✅ sorted()
+print(sorted([3,1,2]))             # ➡️ [1, 2, 3]
+
+# ✅ str()
+print(str(123))                    # ➡️ '123'
+
+# ✅ sum()
+print(sum([1,2,3]))                # ➡️ 6
+
+# ✅ tuple()
+print(tuple([1,2,3]))              # ➡️ (1, 2, 3)
+
+# ✅ type()
+print(type(5))                     # ➡️ <class 'int'>
+
+# ✅ zip()
+print(list(zip([1,2,3], ['a','b','c'])))  # ➡️ [(1, 'a'), (2, 'b'), (3, 'c')]
