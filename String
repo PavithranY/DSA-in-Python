@@ -1,0 +1,300 @@
+# 🚀 ULTIMATE STRING TITAN CODE (Roadmap + Algorithms + IV Ques)
+
+# ✅ 1. Traversal & Basic Operations
+def traverse_string(s):
+    print("Characters in String:")
+    for ch in s:
+        print(ch, end=" ")
+    print()
+
+# ✅ 2. Reverse a String
+def reverse_string(s):
+    print("Reversed String:", s[::-1])
+
+# ✅ 3. Check Palindrome
+def is_palindrome(s):
+    print(f"'{s}' is Palindrome ✅" if s == s[::-1] else f"'{s}' is NOT Palindrome ❌")
+
+# ✅ 4. Count Vowels, Consonants, Digits, Spaces
+def count_vcds(s):
+    vowels = 'aeiouAEIOU'
+    v = c = d = sp = 0
+    for ch in s:
+        if ch.isdigit():
+            d += 1
+        elif ch.isspace():
+            sp += 1
+        elif ch.isalpha():
+            if ch in vowels: v += 1
+            else: c += 1
+    print("Vowels:", v, "| Consonants:", c, "| Digits:", d, "| Spaces:", sp)
+
+# ✅ 5. Toggle Case
+def toggle_case(s):
+    print("Toggled Case:", s.swapcase())
+
+# ✅ 6. String Comparison
+def compare_strings(s1, s2):
+    print("Equal ✅" if s1 == s2 else f"'{max(s1, s2)}' is Lexicographically Greater")
+
+# ✅ 7. Substring Extraction
+def extract_substring(s, start, end):
+    print("Extracted Substring:", s[start:end])
+
+# ✅ 8. Find Length of String
+def string_length(s):
+    print("Length of String:", len(s))
+
+# ✅ 9. Concatenate Strings
+def concatenate_strings(s1, s2):
+    print("Concatenated String:", s1 + s2)
+
+# ✅ 10. Check Anagram
+def is_anagram(s1, s2):
+    print("Anagrams ✅" if sorted(s1) == sorted(s2) else "Not Anagrams ❌")
+
+# ✅ 11. Remove Duplicate Characters
+def remove_duplicates(s):
+    print("Without Duplicates:", "".join(sorted(set(s), key=s.index)))
+
+# ✅ 12. Find Duplicate Characters with Count
+def find_duplicates(s):
+    from collections import Counter
+    counter = Counter(s)
+    print("Duplicate Characters:")
+    for ch, count in counter.items():
+        if count > 1:
+            print(f"{ch}: {count} times")
+
+# ✅ 13. Count Words
+def count_words(s):
+    print("Word Count:", len(s.split()))
+
+# ✅ 14. Reverse Words in String
+def reverse_words(s):
+    print("Reversed Words:", " ".join(s.split()[::-1]))
+
+# ✅ 15. Longest Word
+def longest_word(s):
+    words = s.split()
+    print("Longest Word:", max(words, key=len))
+
+# ✅ 16. Print All Substrings
+def print_substrings(s):
+    print("All Substrings:")
+    for i in range(len(s)):
+        for j in range(i + 1, len(s) + 1):
+            print(s[i:j])
+
+# ✅ 17. Check if Strings are Rotations
+def is_rotation(s1, s2):
+    print("Rotations ✅" if len(s1) == len(s2) and s1 in (s2 + s2) else "Not Rotations ❌")
+
+# ✅ 18. Longest Common Prefix
+def longest_common_prefix(strings):
+    prefix = strings[0]
+    for s in strings[1:]:
+        while not s.startswith(prefix):
+            prefix = prefix[:-1]
+            if not prefix:
+                print("No Common Prefix")
+                return
+    print("Longest Common Prefix:", prefix)
+
+# ✅ 19. Longest Palindromic Substring (Expand Center)
+def longest_palindrome(s):
+    if not s: return
+    start = end = 0
+    for i in range(len(s)):
+        l1, r1 = expand_center(s, i, i)
+        l2, r2 = expand_center(s, i, i + 1)
+        if r1 - l1 > end - start:
+            start, end = l1, r1
+        if r2 - l2 > end - start:
+            start, end = l2, r2
+    print("Longest Palindromic Substring:", s[start:end+1])
+
+def expand_center(s, left, right):
+    while left >= 0 and right < len(s) and s[left] == s[right]:
+        left -= 1
+        right += 1
+    return left + 1, right - 1
+
+# ✅ 20. Count Occurrences of a Substring
+def count_substring_occurrences(text, sub):
+    print(f"'{sub}' occurs {text.count(sub)} times")
+
+# ✅ 21. KMP Algorithm
+def kmp_search(text, pattern):
+    def compute_lps(pattern):
+        lps = [0] * len(pattern)
+        length = 0
+        i = 1
+        while i < len(pattern):
+            if pattern[i] == pattern[length]:
+                length += 1
+                lps[i] = length
+                i += 1
+            else:
+                length = lps[length-1] if length else 0
+                i += (length == 0)
+        return lps
+
+    lps = compute_lps(pattern)
+    i = j = 0
+    while i < len(text):
+        if text[i] == pattern[j]:
+            i += 1
+            j += 1
+            if j == len(pattern):
+                print(f"Pattern found at index {i-j}")
+                return
+        elif j != 0:
+            j = lps[j-1]
+        else:
+            i += 1
+    print("Pattern not found")
+
+# ✅ 22. Rabin-Karp Algorithm
+def rabin_karp(text, pattern):
+    d, q = 256, 101
+    m, n = len(pattern), len(text)
+    h = pow(d, m-1, q)
+    p = t = 0
+    for i in range(m):
+        p = (d*p + ord(pattern[i])) % q
+        t = (d*t + ord(text[i])) % q
+    for i in range(n-m+1):
+        if p == t and text[i:i+m] == pattern:
+            print(f"Pattern found at index {i}")
+            return
+        if i < n-m:
+            t = (d*(t - ord(text[i])*h) + ord(text[i+m])) % q
+            if t < 0: t += q
+    print("Pattern not found")
+
+# ✅ 23. Minimum Insertions to Make Palindrome (DP)
+def min_insertions_palindrome(s):
+    n = len(s)
+    dp = [[0]*n for _ in range(n)]
+    for gap in range(1, n):
+        for i in range(n-gap):
+            j = i+gap
+            dp[i][j] = 0 if s[i] == s[j] else min(dp[i][j-1], dp[i+1][j]) + 1
+    print("Minimum Insertions:", dp[0][n-1])
+
+# ✅ 24. Minimum Deletions to Make Palindrome
+def min_deletions_palindrome(s):
+    print("Minimum Deletions:", len(s) - lcs(s, s[::-1]))
+
+def lcs(X, Y):
+    m, n = len(X), len(Y)
+    dp = [[0]*(n+1) for _ in range(m+1)]
+    for i in range(m):
+        for j in range(n):
+            dp[i+1][j+1] = dp[i][j]+1 if X[i]==Y[j] else max(dp[i][j+1], dp[i+1][j])
+    return dp[-1][-1]
+
+# ✅ 25. First Non-Repeating Character
+def first_non_repeating(s):
+    from collections import Counter
+    counter = Counter(s)
+    for ch in s:
+        if counter[ch] == 1:
+            print("First Non-Repeating Character:", ch)
+            return
+    print("No Non-Repeating Character Found")
+
+# ✅ 26. Print All Permutations of a String
+def print_permutations(s):
+    from itertools import permutations
+    perms = set([''.join(p) for p in permutations(s)])
+    print("All Unique Permutations:")
+    for p in sorted(perms):
+        print(p)
+
+# ✅ 27. Longest Repeated Substring (Suffix Array Approach)
+def longest_repeated_substring(s):
+    suffixes = sorted([s[i:] for i in range(len(s))])
+    lrs, max_len = "", 0
+    for i in range(len(suffixes)-1):
+        temp = common_prefix(suffixes[i], suffixes[i+1])
+        if len(temp) > max_len:
+            max_len, lrs = len(temp), temp
+    print("Longest Repeated Substring:", lrs if lrs else "None")
+
+def common_prefix(s1, s2):
+    i = 0
+    while i < min(len(s1), len(s2)) and s1[i] == s2[i]:
+        i += 1
+    return s1[:i]
+
+# 🔥 MENU DRIVEN PROGRAM
+def string_titan_menu():
+    print("\n🎯 STRING TITAN MENU (Roadmap + Algorithms + IV Ques)")
+    print("1. Traverse String")
+    print("2. Reverse String")
+    print("3. Check Palindrome")
+    print("4. Count Vowels/Consonants/Digits/Spaces")
+    print("5. Toggle Case")
+    print("6. Compare Strings")
+    print("7. Extract Substring")
+    print("8. Find Length")
+    print("9. Concatenate Strings")
+    print("10. Check Anagram")
+    print("11. Remove Duplicate Characters")
+    print("12. Find Duplicate Characters")
+    print("13. Count Words")
+    print("14. Reverse Words")
+    print("15. Longest Word")
+    print("16. Print All Substrings")
+    print("17. Check Rotations")
+    print("18. Longest Common Prefix")
+    print("19. Longest Palindromic Substring")
+    print("20. Count Occurrences of a Substring")
+    print("21. Substring Search (KMP)")
+    print("22. Substring Search (Rabin-Karp)")
+    print("23. Min Insertions for Palindrome")
+    print("24. Min Deletions for Palindrome")
+    print("25. First Non-Repeating Character")
+    print("26. Print All Permutations")
+    print("27. Longest Repeated Substring")
+    print("0. Exit")
+    while True:
+        choice = int(input("\nEnter your choice: "))
+        if choice == 0: break
+        s1 = input("Enter string: ") if choice not in [6, 10] else input("Enter first string: ")
+        s2 = input("Enter second string: ") if choice in [6, 10] else None
+
+        match choice:
+            case 1: traverse_string(s1)
+            case 2: reverse_string(s1)
+            case 3: is_palindrome(s1)
+            case 4: count_vcds(s1)
+            case 5: toggle_case(s1)
+            case 6: compare_strings(s1, s2)
+            case 7: start, end = map(int, input("Enter start and end: ").split()); extract_substring(s1, start, end)
+            case 8: string_length(s1)
+            case 9: s2 = input("Enter second string: "); concatenate_strings(s1, s2)
+            case 10: is_anagram(s1, s2)
+            case 11: remove_duplicates(s1)
+            case 12: find_duplicates(s1)
+            case 13: count_words(s1)
+            case 14: reverse_words(s1)
+            case 15: longest_word(s1)
+            case 16: print_substrings(s1)
+            case 17: s2 = input("Enter second string: "); is_rotation(s1, s2)
+            case 18: strings = input("Enter space-separated strings: ").split(); longest_common_prefix(strings)
+            case 19: longest_palindrome(s1)
+            case 20: sub = input("Enter substring: "); count_substring_occurrences(s1, sub)
+            case 21: pattern = input("Enter pattern: "); kmp_search(s1, pattern)
+            case 22: pattern = input("Enter pattern: "); rabin_karp(s1, pattern)
+            case 23: min_insertions_palindrome(s1)
+            case 24: min_deletions_palindrome(s1)
+            case 25: first_non_repeating(s1)
+            case 26: print_permutations(s1)
+            case 27: longest_repeated_substring(s1)
+            case _: print("Invalid Choice")
+
+# 🔥 RUN MASTER STRING TITAN
+string_titan_menu()
