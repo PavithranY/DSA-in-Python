@@ -1,0 +1,241 @@
+# 🚀 RECURSION TITAN MASTER CODE (All Roadmap Questions + FAANG Level)
+# 📌 Outputs in comments for instant clarity
+
+# ================== ✅ BEGINNER LEVEL ==================
+
+# ✅ 1. Print numbers from 1 to N
+def print_1_to_n(n):
+    if n == 0:
+        return
+    print_1_to_n(n-1)
+    print(n, end=' ')
+print_1_to_n(5)  # ➡️ 1 2 3 4 5
+
+# ✅ 2. Factorial of a number
+def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n-1)
+print(factorial(5))  # ➡️ 120
+
+# ✅ 3. Sum of first N natural numbers
+def sum_n(n):
+    if n == 0:
+        return 0
+    return n + sum_n(n-1)
+print(sum_n(5))  # ➡️ 15
+
+# ✅ 4. Fibonacci Series (Recursive)
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+print([fibonacci(i) for i in range(7)])  # ➡️ [0, 1, 1, 2, 3, 5, 8]
+
+# ✅ 5. Power of a Number (xⁿ)
+def power(x, n):
+    if n == 0:
+        return 1
+    return x * power(x, n-1)
+print(power(2, 3))  # ➡️ 8
+
+# ✅ 6. Check if Array is Sorted
+def is_sorted(arr, index=0):
+    if index == len(arr)-1:
+        return True
+    if arr[index] > arr[index+1]:
+        return False
+    return is_sorted(arr, index+1)
+print(is_sorted([1,2,3,4]))  # ➡️ True
+print(is_sorted([1,3,2]))    # ➡️ False
+
+# ✅ 7. Linear Search in Array (Recursive)
+def linear_search(arr, target, index=0):
+    if index == len(arr):
+        return False
+    if arr[index] == target:
+        return True
+    return linear_search(arr, target, index+1)
+print(linear_search([1,2,3,4], 3))  # ➡️ True
+
+# ✅ 8. Reverse a String
+def reverse_string(s):
+    if len(s) == 0:
+        return s
+    return reverse_string(s[1:]) + s[0]
+print(reverse_string("titan"))  # ➡️ natit
+
+# ✅ 9. Palindrome Check
+def is_palindrome(s):
+    if len(s) <= 1:
+        return True
+    if s[0] != s[-1]:
+        return False
+    return is_palindrome(s[1:-1])
+print(is_palindrome("level"))  # ➡️ True
+
+# ================== 🚀 INTERMEDIATE LEVEL ==================
+
+# ✅ 10. Tower of Hanoi Problem
+def tower_of_hanoi(n, source, helper, target):
+    if n == 0:
+        return
+    tower_of_hanoi(n-1, source, target, helper)
+    print(f"Move disk {n} from {source} to {target}")
+    tower_of_hanoi(n-1, helper, source, target)
+tower_of_hanoi(3, 'A', 'B', 'C')
+# ➡️ Shows steps to move 3 disks from A to C
+
+# ✅ 11. Print All Subsequences of a String
+def subsequences(s, ans=""):
+    if len(s) == 0:
+        print(ans)
+        return
+    subsequences(s[1:], ans+s[0])  # Include
+    subsequences(s[1:], ans)       # Exclude
+subsequences("abc")
+# ➡️ abc, ab, ac, a, bc, b, c, (empty)
+
+# ✅ 12. Print All Subsets of an Array
+def subsets(arr, i=0, curr=[]):
+    if i == len(arr):
+        print(curr)
+        return
+    subsets(arr, i+1, curr + [arr[i]])  # Include
+    subsets(arr, i+1, curr)             # Exclude
+subsets([1,2,3])
+# ➡️ [1,2,3], [1,2], [1,3], [1], [2,3], [2], [3], []
+
+# ✅ 13. Generate All Permutations of a String
+def permutations(s, ans=""):
+    if len(s) == 0:
+        print(ans)
+        return
+    for i in range(len(s)):
+        permutations(s[:i]+s[i+1:], ans+s[i])
+permutations("abc")
+# ➡️ abc, acb, bac, bca, cab, cba
+
+# ✅ 14. Count Number of Paths in a Maze (m x n)
+def count_paths(m, n):
+    if m == 1 or n == 1:
+        return 1
+    return count_paths(m-1, n) + count_paths(m, n-1)
+print(count_paths(3, 3))  # ➡️ 6
+
+# ✅ 15. Print All Binary Strings of Length N
+def binary_strings(n, s=""):
+    if n == 0:
+        print(s)
+        return
+    binary_strings(n-1, s+"0")
+    binary_strings(n-1, s+"1")
+binary_strings(3)
+# ➡️ 000,001,010,011,100,101,110,111
+
+# ✅ 16. Recursive Binary Search
+def binary_search(arr, target, low, high):
+    if low > high:
+        return False
+    mid = (low + high) // 2
+    if arr[mid] == target:
+        return True
+    elif arr[mid] < target:
+        return binary_search(arr, target, mid+1, high)
+    else:
+        return binary_search(arr, target, low, mid-1)
+print(binary_search([1,2,3,4,5], 4, 0, 4))  # ➡️ True
+
+# ================== 💎 ADVANCED LEVEL ==================
+
+# ✅ Solve Sudoku (Backtracking)
+def solve_sudoku(board):
+    empty = find_empty(board)
+    if not empty:
+        for row in board:
+            print(row)
+        return True
+    row, col = empty
+    for num in range(1, 10):
+        if is_valid(board, num, row, col):
+            board[row][col] = num
+            if solve_sudoku(board):
+                return True
+            board[row][col] = 0
+    return False
+
+def find_empty(board):
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            if board[i][j] == 0:
+                return (i, j)
+    return None
+
+def is_valid(board, num, row, col):
+    for i in range(9):
+        if board[row][i] == num or board[i][col] == num:
+            return False
+    box_row, box_col = row//3*3, col//3*3
+    for i in range(box_row, box_row+3):
+        for j in range(box_col, box_col+3):
+            if board[i][j] == num:
+                return False
+    return True
+
+sudoku_board = [
+    [5,3,0,0,7,0,0,0,0],
+    [6,0,0,1,9,5,0,0,0],
+    [0,9,8,0,0,0,0,6,0],
+    [8,0,0,0,6,0,0,0,3],
+    [4,0,0,8,0,3,0,0,1],
+    [7,0,0,0,2,0,0,0,6],
+    [0,6,0,0,0,0,2,8,0],
+    [0,0,0,4,1,9,0,0,5],
+    [0,0,0,0,8,0,0,7,9]
+]
+solve_sudoku(sudoku_board)
+# ➡️ Prints solved Sudoku grid
+
+# ✅ Count Ways to Climb Stairs
+def count_stairs(n):
+    if n == 0:
+        return 1
+    if n < 0:
+        return 0
+    return count_stairs(n-1) + count_stairs(n-2)
+print(count_stairs(4))  # ➡️ 5
+
+# ✅ Word Break Problem (Leetcode Style)
+def word_break(s, word_dict):
+    if not s:
+        return True
+    for word in word_dict:
+        if s.startswith(word):
+            if word_break(s[len(word):], word_dict):
+                return True
+    return False
+print(word_break("applepenapple", ["apple","pen"]))  # ➡️ True
+
+# ✅ Kth Symbol in Grammar
+def kth_grammar(n, k):
+    if n == 1 and k == 1:
+        return 0
+    mid = 2**(n-1) // 2
+    if k <= mid:
+        return kth_grammar(n-1, k)
+    else:
+        return 1 - kth_grammar(n-1, k-mid)
+print(kth_grammar(4, 5))  # ➡️ 1
+
+# ✅ Decode Ways (Leetcode 91)
+def decode_ways(s):
+    if not s:
+        return 1
+    if s[0] == '0':
+        return 0
+    res = decode_ways(s[1:])
+    if len(s) >= 2 and int(s[:2]) <= 26:
+        res += decode_ways(s[2:])
+    return res
+print(decode_ways("226"))  # ➡️ 3
+
