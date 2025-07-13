@@ -1,3 +1,19 @@
+| 📚 **Topic**                            | 📌 **Level** | 🏆 **Placement Importance** |
+| --------------------------------------- | ------------ | --------------------------- |
+| ✅ Linear Search                         | Beginner     | ⭐⭐                          |
+| ✅ Binary Search (Iterative & Recursive) | Beginner     | ⭐⭐⭐⭐                        |
+| ✅ First and Last Occurrence (Binary)    | Intermediate | ⭐⭐⭐⭐                        |
+| ✅ Count Occurrences in Sorted Array     | Intermediate | ⭐⭐⭐                         |
+| ✅ Search in Rotated Sorted Array        | Advanced     | ⭐⭐⭐⭐⭐                       |
+| ✅ Find Minimum in Rotated Sorted Array  | Advanced     | ⭐⭐⭐⭐                        |
+| ✅ Find Peak Element                     | Advanced     | ⭐⭐⭐⭐                        |
+| ✅ Square Root using Binary Search       | Advanced     | ⭐⭐⭐                         |
+| ✅ Floor and Ceil in Sorted Array        | Intermediate | ⭐⭐⭐                         |
+| ✅ Next Greater Element (using Stack)    | Advanced     | ⭐⭐⭐⭐                        |
+| ✅ Median of Two Sorted Arrays           | Expert       | ⭐⭐⭐⭐⭐                       |
+| ✅ Kth Smallest Element (Heap/Partition) | Advanced     | ⭐⭐⭐⭐⭐                       |
+
+
 # ✅ 1. Linear Search
 def linear_search(arr, target):
     for i, val in enumerate(arr):
