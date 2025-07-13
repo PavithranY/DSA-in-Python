@@ -1,3 +1,155 @@
+🚀 📚 Full Array Roadmap (Basic → Advanced + Algorithms)
+📌 Topic/Algorithm	🏆 Level	⭐ Placement Importance
+✅ Traversal & Basic Operations	Beginner	⭐⭐
+✅ Find Min/Max in Array	Beginner	⭐⭐⭐
+✅ Reverse an Array	Beginner	⭐⭐⭐
+✅ Rotate Array (Left/Right by K)	Beginner	⭐⭐⭐⭐
+✅ Search (Linear Search, Binary Search)	Beginner	⭐⭐⭐⭐
+✅ Remove Duplicates from Sorted Array	Intermediate	⭐⭐⭐⭐
+✅ Move Zeroes to End	Intermediate	⭐⭐⭐⭐
+✅ Kadane’s Algorithm (Max Subarray Sum)	Intermediate	⭐⭐⭐⭐⭐
+✅ Moore’s Voting Algorithm (Majority Element)	Intermediate	⭐⭐⭐⭐⭐
+✅ Two Pointer Problems (Pair Sum, Reverse Vowels, etc)	Intermediate	⭐⭐⭐⭐⭐
+✅ Prefix Sum Problems	Intermediate	⭐⭐⭐⭐⭐
+✅ Sliding Window Problems (Fixed & Variable Size)	Intermediate	⭐⭐⭐⭐⭐
+✅ Dutch National Flag Algorithm (Sort 0s,1s,2s)	Intermediate	⭐⭐⭐⭐⭐
+✅ Find Missing Number (1 to N)	Intermediate	⭐⭐⭐⭐⭐
+✅ Find Duplicate Number (1 to N)	Intermediate	⭐⭐⭐⭐
+✅ Leaders in Array	Intermediate	⭐⭐⭐⭐
+✅ Maximum Product Subarray	Advanced	⭐⭐⭐⭐
+✅ Trapping Rainwater	Advanced	⭐⭐⭐⭐⭐
+✅ Longest Subarray with Sum K (HashMap)	Advanced	⭐⭐⭐⭐⭐
+✅ Subarray with 0 Sum	Advanced	⭐⭐⭐⭐⭐
+✅ Maximum of All Subarrays of Size K (Deque)	Advanced	⭐⭐⭐⭐⭐
+✅ Rotate Matrix (90 degrees)	Advanced	⭐⭐⭐⭐⭐
+✅ Spiral Matrix	Advanced	⭐⭐⭐⭐
+✅ Search in Rotated Sorted Array	Advanced	⭐⭐⭐⭐⭐
+✅ Median of Two Sorted Arrays	Expert	⭐⭐⭐⭐⭐
+✅ Kth Largest/Smallest Element (Heap or QuickSelect)	Advanced	⭐⭐⭐⭐⭐
+✅ Count Inversions (Merge Sort Based)	Advanced	⭐⭐⭐⭐⭐
+
+🔥 Key Array Algorithms + Python Codes
+✅ 1. Kadane’s Algorithm (Maximum Subarray Sum)
+python
+Copy
+Edit
+def kadanes_algorithm(arr):
+    max_sum = curr_sum = arr[0]
+    for num in arr[1:]:
+        curr_sum = max(num, curr_sum + num)
+        max_sum = max(max_sum, curr_sum)
+    print("Maximum Subarray Sum:", max_sum)
+✅ 2. Moore’s Voting Algorithm (Majority Element)
+python
+Copy
+Edit
+def majority_element(arr):
+    count, candidate = 0, None
+    for num in arr:
+        if count == 0:
+            candidate = num
+        count += (1 if num == candidate else -1)
+    print("Majority Element (Candidate):", candidate)
+✅ 3. Dutch National Flag Algorithm (Sort 0s,1s,2s)
+python
+Copy
+Edit
+def dutch_flag_sort(arr):
+    low, mid, high = 0, 0, len(arr)-1
+    while mid <= high:
+        if arr[mid] == 0:
+            arr[low], arr[mid] = arr[mid], arr[low]
+            low += 1
+            mid += 1
+        elif arr[mid] == 1:
+            mid += 1
+        else:
+            arr[mid], arr[high] = arr[high], arr[mid]
+            high -= 1
+    print("Sorted Array:", arr)
+✅ 4. Sliding Window (Maximum of All Subarrays of Size K)
+python
+Copy
+Edit
+from collections import deque
+
+def max_subarrays(arr, k):
+    dq = deque()
+    result = []
+    for i in range(len(arr)):
+        while dq and dq[0] <= i-k:
+            dq.popleft()
+        while dq and arr[dq[-1]] < arr[i]:
+            dq.pop()
+        dq.append(i)
+        if i >= k-1:
+            result.append(arr[dq[0]])
+    print("Max of each subarray of size K:", result)
+✅ 5. Trapping Rainwater Problem
+python
+Copy
+Edit
+def trap_rainwater(height):
+    left, right = 0, len(height)-1
+    left_max, right_max, water = 0, 0, 0
+    while left < right:
+        if height[left] < height[right]:
+            if height[left] >= left_max:
+                left_max = height[left]
+            else:
+                water += left_max - height[left]
+            left += 1
+        else:
+            if height[right] >= right_max:
+                right_max = height[right]
+            else:
+                water += right_max - height[right]
+            right -= 1
+    print("Trapped Rainwater:", water)
+✅ 6. Find Missing Number (1 to N)
+python
+Copy
+Edit
+def find_missing_number(arr, n):
+    total = n*(n+1)//2
+    print("Missing Number:", total - sum(arr))
+✅ 7. Search in Rotated Sorted Array
+python
+Copy
+Edit
+def search_rotated(arr, target):
+    low, high = 0, len(arr)-1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            print(f"Found {target} at index {mid}")
+            return
+        if arr[low] <= arr[mid]:
+            if arr[low] <= target < arr[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+        else:
+            if arr[mid] < target <= arr[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+    print(f"{target} not found")
+
+🏆 Top 10 Most Asked Array Interview Questions
+✅ Find the maximum subarray sum (Kadane’s Algorithm)
+✅ Find the duplicate number (Floyd’s Cycle Detection)
+✅ Rotate matrix by 90 degrees (In-place rotation)
+✅ Trapping Rainwater
+✅ Merge overlapping intervals
+✅ Maximum of all subarrays of size K (Sliding Window)
+✅ Find missing and repeating number
+✅ Search in rotated sorted array
+✅ Subarray with given sum (Hashmap + Prefix Sum)
+✅ Kth smallest element (QuickSelect/Heap)
+
+
+
 # 🔥 MASTER ARRAY CODE (Basic → Advanced + Key Algorithms + Top 10 IV Ques)
 
 from collections import deque
