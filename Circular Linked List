@@ -1,0 +1,243 @@
+# Node class for Circular Linked List
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+# Circular Linked List class
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+
+    # ✅ Traverse the circular linked list
+    def traverse(self):
+        if not self.head:
+            print("List is empty")
+            return
+        temp = self.head
+        print("Circular Linked List Traversal:", end=" ")
+        while True:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+            if temp == self.head:
+                break
+        print("(back to head)")
+
+    # ✅ Insert at beginning
+    def insert_at_beginning(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            new_node.next = new_node
+            return
+        last = self.head
+        while last.next != self.head:
+            last = last.next
+        new_node.next = self.head
+        last.next = new_node
+        self.head = new_node
+
+    # ✅ Insert at end
+    def insert_at_end(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            new_node.next = new_node
+            return
+        last = self.head
+        while last.next != self.head:
+            last = last.next
+        last.next = new_node
+        new_node.next = self.head
+
+    # ✅ Insert at a specific position
+    def insert_at_position(self, data, position):
+        if position == 0:
+            self.insert_at_beginning(data)
+            return
+        new_node = Node(data)
+        temp = self.head
+        for _ in range(position - 1):
+            temp = temp.next
+            if temp == self.head:
+                print("Position out of bounds")
+                return
+        new_node.next = temp.next
+        temp.next = new_node
+
+    # ✅ Delete at beginning
+    def delete_at_beginning(self):
+        if not self.head:
+            print("List is empty")
+            return
+        if self.head.next == self.head:
+            self.head = None
+            return
+        last = self.head
+        while last.next != self.head:
+            last = last.next
+        self.head = self.head.next
+        last.next = self.head
+
+    # ✅ Delete at end
+    def delete_at_end(self):
+        if not self.head:
+            print("List is empty")
+            return
+        if self.head.next == self.head:
+            self.head = None
+            return
+        temp = self.head
+        while temp.next.next != self.head:
+            temp = temp.next
+        temp.next = self.head
+
+    # ✅ Delete at a specific position
+    def delete_at_position(self, position):
+        if not self.head:
+            print("List is empty")
+            return
+        if position == 0:
+            self.delete_at_beginning()
+            return
+        temp = self.head
+        for _ in range(position - 1):
+            temp = temp.next
+            if temp.next == self.head:
+                print("Position out of bounds")
+                return
+        temp.next = temp.next.next
+
+    # ✅ Search for a value
+    def search(self, key):
+        if not self.head:
+            print("List is empty")
+            return False
+        temp = self.head
+        index = 0
+        while True:
+            if temp.data == key:
+                print(f"Value {key} found at position {index}")
+                return True
+            temp = temp.next
+            index += 1
+            if temp == self.head:
+                break
+        print(f"Value {key} not found")
+        return False
+
+    # ✅ Reverse the circular linked list
+    def reverse(self):
+        if not self.head:
+            print("List is empty")
+            return
+        prev = None
+        current = self.head
+        next_node = current.next
+        while True:
+            current.next = prev
+            prev = current
+            current = next_node
+            next_node = next_node.next
+            if current == self.head:
+                break
+        self.head.next = prev
+        self.head = prev
+        print("Circular Linked List Reversed")
+
+    # ✅ Find length of circular linked list
+    def find_length(self):
+        if not self.head:
+            print("Length: 0")
+            return
+        count = 1
+        temp = self.head.next
+        while temp != self.head:
+            count += 1
+            temp = temp.next
+        print("Length of Circular Linked List:", count)
+
+    # ✅ Find middle node
+    def find_middle(self):
+        if not self.head:
+            print("List is empty")
+            return
+        slow = self.head
+        fast = self.head
+        while fast.next != self.head and fast.next.next != self.head:
+            slow = slow.next
+            fast = fast.next.next
+        print("Middle Node:", slow.data)
+
+    # ✅ Split circular linked list into two halves
+    def split_into_two(self):
+        if not self.head or self.head.next == self.head:
+            print("Cannot split: Not enough nodes")
+            return
+        slow = self.head
+        fast = self.head
+        while fast.next != self.head and fast.next.next != self.head:
+            slow = slow.next
+            fast = fast.next.next
+
+        head1 = self.head
+        head2 = slow.next
+        slow.next = head1
+
+        temp = head2
+        while temp.next != self.head:
+            temp = temp.next
+        temp.next = head2
+
+        print("First Half:")
+        temp1 = head1
+        while True:
+            print(temp1.data, end=" -> ")
+            temp1 = temp1.next
+            if temp1 == head1:
+                break
+        print("(back to head)")
+
+        print("Second Half:")
+        temp2 = head2
+        while True:
+            print(temp2.data, end=" -> ")
+            temp2 = temp2.next
+            if temp2 == head2:
+                break
+        print("(back to head)")
+
+    # ✅ Check if circular linked list is palindrome
+    def is_palindrome(self):
+        values = []
+        temp = self.head
+        while True:
+            values.append(temp.data)
+            temp = temp.next
+            if temp == self.head:
+                break
+        if values == values[::-1]:
+            print("Circular Linked List is a Palindrome")
+        else:
+            print("Circular Linked List is NOT a Palindrome")
+
+
+# 🔥 Example usage:
+cll = CircularLinkedList()
+cll.insert_at_end(1)
+cll.insert_at_end(2)
+cll.insert_at_end(3)
+cll.insert_at_end(2)
+cll.insert_at_end(1)
+
+cll.traverse()
+cll.find_length()
+cll.find_middle()
+cll.search(3)
+
+cll.reverse()
+cll.traverse()
+
+cll.is_palindrome()
+
+cll.split_into_two()
