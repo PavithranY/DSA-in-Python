@@ -1,0 +1,200 @@
+# ✅ 1. Linear Search
+def linear_search(arr, target):
+    for i, val in enumerate(arr):
+        if val == target:
+            print(f"{target} found at index {i}")
+            return i
+    print(f"{target} not found")
+    return -1
+
+# ✅ 2. Binary Search (Iterative)
+def binary_search_iterative(arr, target):
+    arr.sort()  # Ensure array is sorted
+    low, high = 0, len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            print(f"{target} found at index {mid}")
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    print(f"{target} not found")
+    return -1
+
+# ✅ 3. Binary Search (Recursive)
+def binary_search_recursive(arr, target, low, high):
+    if low > high:
+        print(f"{target} not found")
+        return -1
+    mid = (low + high) // 2
+    if arr[mid] == target:
+        print(f"{target} found at index {mid}")
+        return mid
+    elif arr[mid] < target:
+        return binary_search_recursive(arr, target, mid + 1, high)
+    else:
+        return binary_search_recursive(arr, target, low, mid - 1)
+
+# ✅ 4. First and Last Occurrence
+def first_last_occurrence(arr, target):
+    first = last = -1
+    # First occurrence
+    low, high = 0, len(arr)-1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            first = mid
+            high = mid - 1
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    # Last occurrence
+    low, high = 0, len(arr)-1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            last = mid
+            low = mid + 1
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    print(f"First Occurrence: {first}, Last Occurrence: {last}")
+    return (first, last)
+
+# ✅ 5. Search in Rotated Sorted Array
+def search_rotated_array(arr, target):
+    low, high = 0, len(arr)-1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            print(f"{target} found at index {mid}")
+            return mid
+        if arr[low] <= arr[mid]:  # Left half sorted
+            if arr[low] <= target < arr[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+        else:  # Right half sorted
+            if arr[mid] < target <= arr[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+    print(f"{target} not found")
+    return -1
+
+# ✅ 6. Find Peak Element
+def find_peak_element(arr):
+    low, high = 0, len(arr)-1
+    while low < high:
+        mid = (low + high) // 2
+        if arr[mid] < arr[mid + 1]:
+            low = mid + 1
+        else:
+            high = mid
+    print(f"Peak Element: {arr[low]} at index {low}")
+    return low
+
+# ✅ 7. Square Root using Binary Search
+def sqrt_binary_search(n):
+    low, high = 0, n
+    ans = -1
+    while low <= high:
+        mid = (low + high) // 2
+        if mid * mid == n:
+            print(f"Square root of {n} is {mid}")
+            return mid
+        elif mid * mid < n:
+            ans = mid
+            low = mid + 1
+        else:
+            high = mid - 1
+    print(f"Floor square root of {n} is {ans}")
+    return ans
+
+# ✅ 8. Floor and Ceil in Sorted Array
+def floor_ceil(arr, target):
+    floor = ceil = -1
+    low, high = 0, len(arr)-1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            floor = ceil = arr[mid]
+            break
+        elif arr[mid] < target:
+            floor = arr[mid]
+            low = mid + 1
+        else:
+            ceil = arr[mid]
+            high = mid - 1
+    print(f"Floor: {floor}, Ceil: {ceil}")
+    return (floor, ceil)
+
+# ✅ 9. Kth Smallest Element (Heap)
+import heapq
+def kth_smallest(arr, k):
+    heapq.heapify(arr)
+    for i in range(k-1):
+        heapq.heappop(arr)
+    print(f"{k}th smallest element: {heapq.heappop(arr)}")
+
+# ✅ 10. Median of Two Sorted Arrays
+def find_median_sorted_arrays(nums1, nums2):
+    merged = sorted(nums1 + nums2)
+    n = len(merged)
+    if n % 2 == 1:
+        print(f"Median: {merged[n//2]}")
+    else:
+        print(f"Median: {(merged[n//2-1] + merged[n//2]) / 2}")
+
+# ✅ Menu-driven Program
+def search_menu():
+    arr = [2, 4, 10, 10, 10, 18, 20]
+    rotated_arr = [10, 15, 1, 3, 8]
+    print("\n🔵 Choose Searching Operation:")
+    print("1. Linear Search")
+    print("2. Binary Search (Iterative)")
+    print("3. Binary Search (Recursive)")
+    print("4. First and Last Occurrence")
+    print("5. Search in Rotated Sorted Array")
+    print("6. Find Peak Element")
+    print("7. Square Root (Binary Search)")
+    print("8. Floor and Ceil in Sorted Array")
+    print("9. Kth Smallest Element")
+    print("10. Median of Two Sorted Arrays")
+    print("0. Exit")
+
+    while True:
+        choice = int(input("\nEnter Choice: "))
+        if choice == 0:
+            break
+        elif choice == 1:
+            linear_search(arr, int(input("Enter target: ")))
+        elif choice == 2:
+            binary_search_iterative(arr, int(input("Enter target: ")))
+        elif choice == 3:
+            binary_search_recursive(arr, int(input("Enter target: ")), 0, len(arr)-1)
+        elif choice == 4:
+            first_last_occurrence(arr, int(input("Enter target: ")))
+        elif choice == 5:
+            search_rotated_array(rotated_arr, int(input("Enter target: ")))
+        elif choice == 6:
+            find_peak_element(arr)
+        elif choice == 7:
+            sqrt_binary_search(int(input("Enter number: ")))
+        elif choice == 8:
+            floor_ceil(arr, int(input("Enter target: ")))
+        elif choice == 9:
+            kth_smallest(arr.copy(), int(input("Enter k: ")))
+        elif choice == 10:
+            nums1 = [1, 3]
+            nums2 = [2]
+            find_median_sorted_arrays(nums1, nums2)
+        else:
+            print("Invalid Choice")
+
+# 🔥 Run Menu
+search_menu()
