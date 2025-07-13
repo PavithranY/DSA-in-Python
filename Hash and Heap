@@ -1,0 +1,352 @@
+✅ Hashing Roadmap (Map, Set, HashTable, HashMap)
+✅ Heap Roadmap (Min-Heap, Max-Heap, Priority Queue)
+✅ Key interview questions with increasing levels
+✅ Roadmap tables for step-by-step prep
+
+🚀 Hashing: Roadmap & Important Questions
+✅ Basics of Hashing
+Implement Hash Table (with chaining & open addressing)
+
+Implement Hash Map (Python: dict, Java: HashMap)
+
+Implement Hash Set (Python: set, Java: HashSet)
+
+Count frequency of elements in an array
+
+Check if two arrays are equal or not
+
+Check for duplicates in an array
+
+⚡ Intermediate Hashing Questions
+Subarray with sum = 0 (GFG/LeetCode: 560)
+
+Longest Subarray with given sum K
+
+Two Sum problem (LeetCode: 1)
+
+Find all pairs with a given sum
+
+Count distinct elements in every window of size K
+
+Group Anagrams (LeetCode: 49)
+
+Check if two strings are anagrams
+
+Find the first non-repeating character in a stream
+
+Longest substring without repeating characters (LeetCode: 3)
+
+Longest consecutive sequence (LeetCode: 128)
+
+Check if a pair exists with a given difference
+
+🔥 Advanced Hashing Questions
+Copy List with Random Pointer (LeetCode: 138)
+
+LFU Cache Design
+
+Word Break Problem (LeetCode: 139)
+
+Subarray with XOR = K
+
+Find duplicate subtrees in a binary tree
+
+Count number of subarrays with given XOR
+
+Top K frequent elements (LeetCode: 347)
+
+🚀 Heap: Roadmap & Important Questions
+✅ Basics of Heap
+Implement Min Heap & Max Heap
+
+Build a Heap from array (Heapify)
+
+Priority Queue implementation using Heap
+
+Heap Sort
+
+⚡ Intermediate Heap Questions
+Find Kth smallest/largest element (LeetCode: 215)
+
+Merge K sorted arrays (or lists) (LeetCode: 23)
+
+Find Median from Data Stream (LeetCode: 295)
+
+Sliding Window Maximum (LeetCode: 239)
+
+Top K frequent elements (LeetCode: 347)
+
+Sort a K-sorted array
+
+Design a Min Stack or Max Stack with O(1) getMin/getMax
+
+🔥 Advanced Heap Questions
+Minimum Cost to Connect Ropes (GFG)
+
+Minimum Number of Platforms (GFG)
+
+Find K closest numbers to X
+
+Find Median in a running stream
+
+Trapping Rain Water II (LeetCode: 407)
+
+Smallest Range Covering Elements from K Lists
+
+Task Scheduler (LeetCode: 621)
+
+🗺️ Step-by-Step Roadmap Table
+Level	Hashing Questions	Heap Questions
+🟢 Basic	Implement HashMap/HashSet, Count Frequencies	Implement Min-Heap, Heap Sort
+Check duplicates, Two Sum	Build Heap, Priority Queue
+🟡 Intermediate	Subarray with sum K, Group Anagrams	Kth Largest Element, Merge K sorted lists
+Longest substring without repeating characters	Sliding Window Maximum, Median of Stream
+🔴 Advanced	LFU Cache, Subarray with XOR	Trapping Rain Water II, Smallest Range
+🚀 Expert	Design Twitter, Top K Frequent Words	Design Min-Max Heap, Custom Priority Queue
+
+⚔️ Combined FAANG-Level Coding Questions
+✅ Hashing + Heap together:
+
+Top K Frequent Words (LeetCode: 692)
+
+Find Median from Data Stream (LeetCode: 295)
+
+Design Twitter (LeetCode: 355)
+
+LFU Cache (LeetCode: 460)
+
+Employee Free Time (LeetCode: 759)
+
+
+
+# --------------------------------------
+# ✅ HASHING IMPLEMENTATION & PROBLEMS
+# --------------------------------------
+
+# ✅ HashMap Implementation
+class HashMap:
+    def __init__(self):
+        self.map = {}
+
+    def put(self, key, value):
+        self.map[key] = value
+
+    def get(self, key):
+        return self.map.get(key, None)
+
+    def remove(self, key):
+        if key in self.map:
+            del self.map[key]
+
+    def display(self):
+        print("HashMap:", self.map)
+
+
+# ✅ Count Frequency of Elements
+def count_frequency(arr):
+    freq = {}
+    for item in arr:
+        freq[item] = freq.get(item, 0) + 1
+    return freq
+
+
+# ✅ Check Duplicates in Array
+def has_duplicates(arr):
+    seen = set()
+    for item in arr:
+        if item in seen:
+            return True
+        seen.add(item)
+    return False
+
+
+# ✅ Two Sum Problem
+def two_sum(nums, target):
+    hashmap = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in hashmap:
+            return [hashmap[complement], i]
+        hashmap[num] = i
+    return []
+
+
+# ✅ Longest Substring Without Repeating Characters
+def longest_unique_substring(s):
+    char_map = {}
+    left = max_len = 0
+    for right in range(len(s)):
+        if s[right] in char_map and char_map[s[right]] >= left:
+            left = char_map[s[right]] + 1
+        char_map[s[right]] = right
+        max_len = max(max_len, right - left + 1)
+    return max_len
+
+
+# ✅ Group Anagrams
+from collections import defaultdict
+def group_anagrams(strs):
+    anagrams = defaultdict(list)
+    for word in strs:
+        key = ''.join(sorted(word))
+        anagrams[key].append(word)
+    return list(anagrams.values())
+
+
+# ✅ Longest Consecutive Sequence
+def longest_consecutive(nums):
+    num_set = set(nums)
+    longest = 0
+    for num in num_set:
+        if num - 1 not in num_set:  # start of sequence
+            current = num
+            streak = 1
+            while current + 1 in num_set:
+                current += 1
+                streak += 1
+            longest = max(longest, streak)
+    return longest
+
+
+# ✅ Top K Frequent Elements
+from collections import Counter
+import heapq
+def top_k_frequent(nums, k):
+    count = Counter(nums)
+    return [item for item, freq in heapq.nlargest(k, count.items(), key=lambda x: x[1])]
+
+
+# --------------------------------------
+# ✅ HEAP IMPLEMENTATION & PROBLEMS
+# --------------------------------------
+
+# ✅ MinHeap & MaxHeap using heapq
+import heapq
+
+# MinHeap
+class MinHeap:
+    def __init__(self):
+        self.heap = []
+
+    def push(self, item):
+        heapq.heappush(self.heap, item)
+
+    def pop(self):
+        return heapq.heappop(self.heap) if self.heap else None
+
+    def peek(self):
+        return self.heap[0] if self.heap else None
+
+    def display(self):
+        print("MinHeap:", self.heap)
+
+
+# MaxHeap
+class MaxHeap:
+    def __init__(self):
+        self.heap = []
+
+    def push(self, item):
+        heapq.heappush(self.heap, -item)  # negate for max-heap
+
+    def pop(self):
+        return -heapq.heappop(self.heap) if self.heap else None
+
+    def peek(self):
+        return -self.heap[0] if self.heap else None
+
+    def display(self):
+        print("MaxHeap:", [-x for x in self.heap])
+
+
+# ✅ Find Kth Largest Element
+def find_kth_largest(nums, k):
+    return heapq.nlargest(k, nums)[-1]
+
+
+# ✅ Merge K Sorted Lists
+def merge_k_sorted_lists(lists):
+    min_heap = []
+    for i, l in enumerate(lists):
+        if l:
+            heapq.heappush(min_heap, (l[0], i, 0))  # (value, list index, element index)
+    result = []
+    while min_heap:
+        val, list_idx, element_idx = heapq.heappop(min_heap)
+        result.append(val)
+        if element_idx + 1 < len(lists[list_idx]):
+            next_tuple = (lists[list_idx][element_idx + 1], list_idx, element_idx + 1)
+            heapq.heappush(min_heap, next_tuple)
+    return result
+
+
+# ✅ Find Median in a Stream
+class MedianFinder:
+    def __init__(self):
+        self.low = []  # Max Heap (inverted)
+        self.high = [] # Min Heap
+
+    def add_num(self, num):
+        heapq.heappush(self.low, -num)
+        heapq.heappush(self.high, -heapq.heappop(self.low))
+        if len(self.low) < len(self.high):
+            heapq.heappush(self.low, -heapq.heappop(self.high))
+
+    def find_median(self):
+        if len(self.low) > len(self.high):
+            return -self.low[0]
+        return (-self.low[0] + self.high[0]) / 2
+
+
+# ✅ Minimum Cost to Connect Ropes
+def min_cost_to_connect_ropes(ropes):
+    heapq.heapify(ropes)
+    total_cost = 0
+    while len(ropes) > 1:
+        first = heapq.heappop(ropes)
+        second = heapq.heappop(ropes)
+        cost = first + second
+        total_cost += cost
+        heapq.heappush(ropes, cost)
+    return total_cost
+
+
+# 🚀 DRIVER CODE TO TEST ALL
+if __name__ == "__main__":
+    print("✅ HASHING TESTS")
+    h = HashMap()
+    h.put("a", 1)
+    h.put("b", 2)
+    h.display()
+    print("Two Sum:", two_sum([2,7,11,15], 9))
+    print("Longest Unique Substring 'abcabcbb':", longest_unique_substring("abcabcbb"))
+    print("Group Anagrams:", group_anagrams(["eat","tea","tan","ate","nat","bat"]))
+    print("Longest Consecutive Sequence:", longest_consecutive([100, 4, 200, 1, 3, 2]))
+    print("Top 2 Frequent Elements:", top_k_frequent([1,1,1,2,2,3], 2))
+
+    print("\n✅ HEAP TESTS")
+    min_heap = MinHeap()
+    min_heap.push(5)
+    min_heap.push(2)
+    min_heap.push(8)
+    min_heap.display()
+    print("Popped Min:", min_heap.pop())
+
+    max_heap = MaxHeap()
+    max_heap.push(5)
+    max_heap.push(2)
+    max_heap.push(8)
+    max_heap.display()
+    print("Popped Max:", max_heap.pop())
+
+    print("Kth Largest Element:", find_kth_largest([3,2,1,5,6,4], 2))
+    print("Merged K Sorted Lists:", merge_k_sorted_lists([[1,4,5],[1,3,4],[2,6]]))
+
+    mf = MedianFinder()
+    mf.add_num(1)
+    mf.add_num(2)
+    print("Median after adding 1,2:", mf.find_median())
+    mf.add_num(3)
+    print("Median after adding 3:", mf.find_median())
+
+    print("Min Cost to Connect Ropes:", min_cost_to_connect_ropes([4, 3, 2, 6]))
