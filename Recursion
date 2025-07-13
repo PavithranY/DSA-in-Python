@@ -1,3 +1,75 @@
+You said:
+🏆 📚 Recursion Mastery Roadmap (Step by Step)
+📌 Topic	🏆 Level	⭐ Placement Importance
+✅ Basics of Recursion (Print 1 to N)	Beginner	⭐⭐⭐
+✅ Factorial of a Number	Beginner	⭐⭐⭐
+✅ Sum of First N Natural Numbers	Beginner	⭐⭐
+✅ Fibonacci Series (Recursive)	Beginner	⭐⭐⭐⭐
+✅ Power of a Number (xⁿ)	Beginner	⭐⭐⭐
+✅ Check if Array is Sorted	Beginner	⭐⭐⭐
+✅ Linear Search in Array (Recursive)	Beginner	⭐⭐
+✅ Reverse a String	Beginner	⭐⭐⭐
+✅ Palindrome Check	Beginner	⭐⭐⭐⭐
+
+🚀 Intermediate Level (Recursive Patterns)
+📌 Topic	🏆 Level	⭐ Placement Importance
+✅ Tower of Hanoi Problem	Intermediate	⭐⭐⭐⭐
+✅ Print All Subsequences of a String	Intermediate	⭐⭐⭐⭐
+✅ Print All Subsets of an Array	Intermediate	⭐⭐⭐⭐
+✅ Generate All Permutations of a String	Intermediate	⭐⭐⭐⭐⭐
+✅ Count Number of Paths in a Maze (m x n)	Intermediate	⭐⭐⭐⭐
+✅ Print All Binary Strings of Length N	Intermediate	⭐⭐⭐⭐
+✅ Recursive Bubble Sort	Intermediate	⭐⭐
+✅ Recursive Insertion Sort	Intermediate	⭐⭐
+
+💎 Advanced Level (Backtracking & DP)
+📌 Topic	🏆 Level	⭐ Placement Importance
+✅ N-Queens Problem	Advanced	⭐⭐⭐⭐⭐
+✅ Rat in a Maze Problem	Advanced	⭐⭐⭐⭐
+✅ Word Search in 2D Grid	Advanced	⭐⭐⭐⭐
+✅ Solve Sudoku (Backtracking)	Advanced	⭐⭐⭐⭐⭐
+✅ Subset Sum Problem	Advanced	⭐⭐⭐⭐
+✅ Generate Parentheses (Valid Combinations)	Advanced	⭐⭐⭐⭐⭐
+✅ Count Ways to Climb Stairs	Advanced	⭐⭐⭐⭐
+✅ Print All Possible Palindromic Partitions	Advanced	⭐⭐⭐⭐
+✅ Print All Paths from Top Left to Bottom Right	Advanced	⭐⭐⭐⭐
+
+🔥 Expert/FAANG-Level Recursion Problems
+📌 Topic	🏆 Level	⭐ Placement Importance
+✅ Kth Symbol in Grammar	Expert	⭐⭐⭐⭐⭐
+✅ Word Break Problem	Expert	⭐⭐⭐⭐⭐
+✅ Letter Combinations of a Phone Number	Expert	⭐⭐⭐⭐
+✅ Print All Palindromic Subsequences	Expert	⭐⭐⭐⭐⭐
+✅ Count Unique Paths with Obstacles	Expert	⭐⭐⭐⭐⭐
+✅ Decode Ways (Leetcode 91)	Expert	⭐⭐⭐⭐
+✅ Recursive Regex Matching (Leetcode Hard)	Expert	⭐⭐⭐⭐⭐
+
+🔑 Key Recursion Patterns
+✅ Backtracking
+✅ Divide and Conquer (Merge Sort, Quick Sort)
+✅ Recursion + Memoization (Top-Down DP)
+✅ Subset/Permutation Generation
+✅ Recursive Tree Traversals (Preorder, Inorder, Postorder)
+
+🎯 Top 15 Most Asked Recursion Interview Questions
+🔥 Question	⭐ Asked In
+✅ Print all subsequences of a string	Amazon, TCS, Wipro
+✅ Generate all permutations of an array	FAANG, Infosys, Capgemini
+✅ N-Queens problem	Google, Microsoft
+✅ Solve Sudoku	Amazon, Cognizant
+✅ Subset Sum Problem	Infosys, FAANG
+✅ Rat in a Maze Problem	TCS, Accenture
+✅ Count number of ways to climb stairs	Wipro, Infosys
+✅ Tower of Hanoi	Amazon, Infosys
+✅ Word Break Problem	FAANG, Product-based
+✅ Decode Ways	FAANG, Competitive Coding
+✅ Print all palindromic partitions	Oracle, Google
+✅ Letter Combinations of Phone Number	Meta, Microsoft
+✅ Kth Symbol in Grammar	Amazon, Google
+✅ Recursive Binary Search	TCS, Wipro
+✅ Print all paths in a grid	Capgemini, Infosys
+
+
 # 🚀 RECURSION TITAN MASTER CODE (All Roadmap Questions + FAANG Level)
 # 📌 Outputs in comments for instant clarity
 
